@@ -1,11 +1,15 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
+import DevTools from '../containers/DevTools'
 
 const configureStore = preloadedState => {
   const store = createStore(
     rootReducer,
     preloadedState,
-    compose(),
+    compose(
+      applyMiddleware(),
+      DevTools.instrument(),
+    ),
   );
   
   if (module.hot) {

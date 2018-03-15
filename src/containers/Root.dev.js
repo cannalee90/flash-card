@@ -2,13 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
+import DevTools from './DevTools';
 
 import App from './App';
 
 const Root = ({ store }) => {
   return (
     <Provider store={store}>
-      <App />
+      <div>
+        <App />
+        <DevTools />
+      </div>
     </Provider>
   )
 }

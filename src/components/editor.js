@@ -14,13 +14,32 @@ class Editor extends Component {
   }
 
   setEditor(ref) {
-    console.log('setEditor');
-    this.editor = new TuiEditor({
-      el: document.querySelector('#tui-editor'),
-      initialEditType: 'markdown',
-      previewStyle: 'vertical',
-      height: '300px'
-    });
+    if (this.editor == null) {
+      const { onChange, onFocus, currentValue, onBlur, onDrop } = this.props;
+      this.editor = new TuiEditor({
+        el: document.querySelector('#tui-editor'),
+        initialEditType: 'markdown',
+        previewStyle: 'vertical',
+        height: '300px',
+        initialValue: currentValue,
+      });
+      this.editor.on('change', () => {
+        console.log('change');
+        onChange(this.editor.getValue());
+      });
+      this.editor.on('focus', () => {
+        console.log('focusing');
+        onFocus();
+      });
+      this.editor.on('blur', () => {
+        console.log('blurring');
+        onBlur();
+      })
+      this.editor.on('drop', () => {
+        console.log('dropping');
+        onDrop();
+      })
+    }
   }
 
   render() {

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 
-
-class App extends Component {
+class NewCard extends Component {
   render() {
     return(
       <div>
-        <h1>This is App</h1>
+        <h1>This is new Card</h1>
         <ul>
           <li>
             <Link to='/'>App</Link>
@@ -24,4 +23,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, null)(App))
+export default withRouter(connect(null, null)(NewCard))

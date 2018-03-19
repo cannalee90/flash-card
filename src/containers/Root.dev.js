@@ -5,12 +5,16 @@ import { Route } from 'react-router-dom';
 import DevTools from './DevTools';
 
 import App from './App';
+import NewCard from './NewCard';
+import List from './List';
 
 const Root = ({ store }) => {
   return (
     <Provider store={store}>
       <div>
-        <App />
+        <Route path='/' exact component={App} />
+        <Route path='/newcard' component={NewCard} />
+        <Route path='/list' component={List} />
         <DevTools />
       </div>
     </Provider>

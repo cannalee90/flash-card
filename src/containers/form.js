@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 
-import Editor from './../components/editor';
+import EditorWrapper from './../common/editor-wrapper';
 
 class Form extends Component {
   render() {
@@ -14,7 +14,7 @@ class Form extends Component {
             <Field name="notes" component="textarea" />
           </div>
           <div>
-            <Editor />
+            <Field name="test" component={EditorWrapper} />
           </div>
           <div>
             <button type="submit" disabled={pristine || submitting}>
@@ -26,6 +26,12 @@ class Form extends Component {
     );
   }
 }
+
+      {/* <Field name="myField" component={props =>
+        <MyStrangeInput 
+          currentValue={{val: props.value}}
+          thingsChanged={param => props.onChange(param.val)}/>
+      }/> */}
 
 Form = reduxForm({
   form: 'contact'

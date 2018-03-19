@@ -6,8 +6,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 const store = configureStore();
 
-console.log(Root);
-
 render(
   <Router>
     <Root store={store} />

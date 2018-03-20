@@ -8,17 +8,6 @@ class App extends Component {
     return(
       <div>
         <h1>This is App</h1>
-        <ul>
-          <li>
-            <Link to='/'>App</Link>
-          </li>
-          <li>
-            <Link to='/newcard'>NewCard</Link>
-          </li>
-          <li>
-            <Link to='/list'>List</Link>
-          </li>
-        </ul>
       </div>
     );
   }

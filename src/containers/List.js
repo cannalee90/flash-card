@@ -13,17 +13,6 @@ class List extends Component {
     return(
       <div>
         <h1>This is List</h1>
-        <ul>
-          <li>
-            <Link to='/'>App</Link>
-          </li>
-          <li>
-            <Link to='/newcard'>NewCard</Link>
-          </li>
-          <li>
-            <Link to='/list'>List</Link>
-          </li>
-        </ul>
         <div>
           <ul>
             {cards.map((card) => {

@@ -7,11 +7,13 @@ import DevTools from './DevTools';
 import App from './App';
 import NewCard from './NewCard';
 import List from './List';
+import Nav from './../components/Nav';
 
 const Root = ({ store }) => {
   return (
     <Provider store={store}>
       <div>
+        <Nav />
         <Route path='/' exact component={App} />
         <Route path='/newcard' component={NewCard} />
         <Route path='/list' component={List} />

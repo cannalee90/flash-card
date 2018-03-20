@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 
 import FormTest from './form';
+import { saveCard } from './../actions';
 
 class NewCard extends Component {
   constructor(props) {
@@ -11,24 +12,13 @@ class NewCard extends Component {
   }
 
   onSubmit(values) {
-    console.log(values);
+    this.props.saveCard(values);
   }
 
   render() {
     return(
       <div>
         <h1>This is new Card</h1>
-        <ul>
-          <li>
-            <Link to='/'>App</Link>
-          </li>
-          <li>
-            <Link to='/newcard'>NewCard</Link>
-          </li>
-          <li>
-            <Link to='/list'>List</Link>
-          </li>
-        </ul>
         <FormTest
           onSubmit={this.onSubmit}
         />        

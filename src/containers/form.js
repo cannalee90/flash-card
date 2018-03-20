@@ -11,9 +11,6 @@ class Form extends Component {
         <div>
           <label>Notes</label>
           <div>
-            <Field name="notes" component="textarea" />
-          </div>
-          <div>
             <Field name="test" component={EditorWrapper} />
           </div>
           <div>
@@ -27,14 +24,8 @@ class Form extends Component {
   }
 }
 
-      {/* <Field name="myField" component={props =>
-        <MyStrangeInput 
-          currentValue={{val: props.value}}
-          thingsChanged={param => props.onChange(param.val)}/>
-      }/> */}
-
 Form = reduxForm({
-  form: 'contact'
+  form: 'newcard'
 })(Form)
 
 export default Form;

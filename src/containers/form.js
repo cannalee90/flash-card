@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form'
 
-import EditorWrapper from './../common/editor-wrapper';
+import { RenderTextInput } from './../common/DefaultFormWrapper';
+import EditorWrapper from './../common/EditorWrapper';
 
 class Form extends Component {
   render() {
@@ -11,10 +12,17 @@ class Form extends Component {
         <div>
           <label>Notes</label>
           <div>
-            <Field name="test" component={EditorWrapper} />
+            <Field
+              name='front'
+              component={RenderTextInput}
+              className='testInputClass'
+            />
           </div>
           <div>
-            <button type="submit" disabled={pristine || submitting}>
+            <Field name='back' component={EditorWrapper} />
+          </div>
+          <div>
+            <button type='submit' disabled={pristine || submitting}>
               Submit
             </button>
           </div>

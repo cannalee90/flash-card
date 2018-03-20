@@ -14,6 +14,9 @@ export default () => {
         <li>
           <Link to='/list'>List</Link>
         </li>
+        <li>
+          <Link to='/signin'>Signin</Link>
+        </li>
       </ul>
     </nav>
   );

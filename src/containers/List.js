@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
+import { fetchCards } from './../actions';
 
 class List extends Component {
-  componenetDidMount() {
-
+  componentDidMount() {
+    this.props.fetchCards();
   }
 
   render() {
@@ -27,10 +28,9 @@ class List extends Component {
           <ul>
             {cards.map((card) => {
               return (
-                <li>card.title</li>
+                <li>{card.front}</li>
               )
-            })}
-                  
+            })}   
           </ul>
         </div>
       </div>
@@ -45,4 +45,6 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(List))
+export default withRouter(connect(mapStateToProps, {
+  fetchCards,
+})(List))

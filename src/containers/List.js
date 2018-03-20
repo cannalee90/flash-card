@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom'
 
 class List extends Component {
+  componenetDidMount() {
+
+  }
+  
   render() {
     return(
       <div>
@@ -18,6 +22,8 @@ class List extends Component {
             <Link to='/list'>List</Link>
           </li>
         </ul>
+        <div>
+        </div>
       </div>
     );
   }

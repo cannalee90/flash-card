@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import FormTest from './form';
-import { saveCard } from './../actions';
 
 class NewCard extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class NewCard extends Component {
   }
 
   onSubmit(values) {
-    this.props.saveCard(values);
+    console.log(values);
   }
 
   render() {

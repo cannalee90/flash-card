@@ -7,6 +7,7 @@ import DevTools from './DevTools';
 import App from './App';
 import NewCard from './NewCard';
 import List from './List';
+import Signin from './Signin';
 import Nav from './../components/Nav';
 
 const Root = ({ store }) => {
@@ -17,6 +18,7 @@ const Root = ({ store }) => {
         <Route path='/' exact component={App} />
         <Route path='/newcard' component={NewCard} />
         <Route path='/list' component={List} />
+        <Route path='/signin' component={Signin} />
         <DevTools />
       </div>
     </Provider>

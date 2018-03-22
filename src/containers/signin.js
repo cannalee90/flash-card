@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import Config from './../config';
 import Popup from './../utils/popup';
 
+// 일단 토큰을 생성해서 gist에 접근하는 방법을 사용
+// 여러명이서 할땐 어짜피 리포를 사용해야함
+// 다음 버젼에서는 리포를 사용해서 여러명이서 할 수 있도록 한다.
+
 class Signin extends Component {
   constructor(props) {
     super(props);
@@ -11,29 +15,16 @@ class Signin extends Component {
   }
 
   signin = () => {
-    Popup(this.githubURL)
-    .then((url) => {
-      console.log(url);
-    })
   }
 
-  // login flow
-  // user is not logined opend popup
-  // and get code from pop
-  // referenced 
-  // https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
-  // https://www.npmjs.com/package/react-github-login
-  // get code from parameter 
-  // wrapping promise with event
-  // request to aws api gateway learn learn lambda and get token
-  // use this token to call api
+  componentDidMount() {
+  }
 
   render() {
     return(
       <div>
-        <h1>This is signin page</h1>
-        <a href={this.githubURL}>Signin</a>
-        <button onClick={this.signin}>signin</button>
+        <h1>This is signin page enter token</h1>
+        
       </div>
     )
   }

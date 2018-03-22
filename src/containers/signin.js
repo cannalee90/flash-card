@@ -11,6 +11,16 @@ class Signin extends Component {
   signin() {
   }
 
+  // login flow
+  // user is not logined opend popup
+  // and get code from pop
+  // referenced 
+  // https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
+  // https://www.npmjs.com/package/react-github-login
+  // get code
+  // request to aws api gateway learn learn lambda and get token
+  // use this token to call api
+
   render() {
     return(
       <div>

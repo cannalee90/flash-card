@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Config from './../config';
+import Popup from './../utils/popup';
 
 class Signin extends Component {
   constructor(props) {
     super(props);
     this.githubURL = `https://github.com/login/oauth/authorize?client_id=${Config.githubAuth.clientId}`;
+    
   }
 
-  signin() {
+  signin = () => {
+    Popup(this.githubURL)
+    .then((url) => {
+      console.log(url);
+    })
   }
 
   // login flow
@@ -17,7 +23,8 @@ class Signin extends Component {
   // referenced 
   // https://gist.github.com/gauravtiwari/2ae9f44aee281c759fe5a66d5c2721a2
   // https://www.npmjs.com/package/react-github-login
-  // get code
+  // get code from parameter 
+  // wrapping promise with event
   // request to aws api gateway learn learn lambda and get token
   // use this token to call api
 
@@ -26,6 +33,7 @@ class Signin extends Component {
       <div>
         <h1>This is signin page</h1>
         <a href={this.githubURL}>Signin</a>
+        <button onClick={this.signin}>signin</button>
       </div>
     )
   }

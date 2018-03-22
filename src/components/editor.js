@@ -10,42 +10,35 @@ class Editor extends Component {
   constructor(props) {
     super(props);
     this.editor = null;
-    this.setEditor = this.setEditor.bind(this);
   }
 
-  setEditor(ref) {
-    if (this.editor == null) {
-      const { onChange, onFocus, currentValue, onBlur, onDrop } = this.props;
-      this.editor = new TuiEditor({
-        el: document.querySelector('#tui-editor'),
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        height: '300px',
-        initialValue: currentValue,
-      });
-      this.editor.on('change', () => {
-        console.log('change');
-        onChange(this.editor.getValue());
-      });
-      this.editor.on('focus', () => {
-        console.log('focusing');
-        onFocus();
-      });
-      this.editor.on('blur', () => {
-        console.log('blurring');
-        onBlur();
-      })
-      this.editor.on('drop', () => {
-        console.log('dropping');
-        onDrop();
-      })
-    }
+  setEditor = (ref) => {
+    const { onChange, onFocus, currentValue, onBlur, onDrop } = this.props;
+    this.editor = new TuiEditor({
+      el: document.querySelector('#tui-editor'),
+      initialEditType: 'markdown',
+      previewStyle: 'vertical',
+      height: '300px',
+      initialValue: currentValue,
+    });
+    this.editor.on('change', () => {
+      onChange(this.editor.getValue());
+    });
+    this.editor.on('focus', () => {
+      onFocus();
+    });
+    this.editor.on('blur', () => {
+      onBlur();
+    })
+    this.editor.on('drop', () => {
+      onDrop();
+    })
   }
 
   render() {
     return(
       <div>
-        <div id='tui-editor' ref={(ref) => this.setEditor(ref)}/>
+        <div id='tui-editor' ref={this.setEditor}/>
       </div>      
     );
   }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "npm": "^5.7.1",
+    "query-string": "^6.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",

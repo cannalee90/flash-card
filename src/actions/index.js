@@ -1,3 +1,5 @@
+import { githubAuth } from '../config';
+
 const demoCards = [
   {
     front: 'Process',
@@ -7,13 +9,25 @@ const demoCards = [
     front: 'Thread',
     back: '프로세스 내에서 실행되는 여러 흐름의 단위. 한개의 프로세스는 여러가지 쓰레드를 가질 수 있으며 쓰레드끼리는 자원 공유가 용이하다',
   }
-]
+];
 
 export const FETCH_CARDS = 'FETCH_CARDS';
+export const REQUEST_ACCESS_TOKEN = 'REQUEST_ACCESS_TOKEN';
 
 export const fetchCards = () => {
   return {
     type: FETCH_CARDS,
     cards: demoCards,
+  }
+}
+
+export const requestAccessToken = (code) => {
+  return {
+    type: REQUEST_ACCESS_TOKEN,
+    payload: {
+      clientId: githubAuth.clientId,
+      clientSecret: '',
+      code: code,
+    }
   }
 }

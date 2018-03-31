@@ -1,7 +1,7 @@
 import { SAVE_ACCESS_TOKEN } from './../actions';
 
 const initialState = {
-  currentUser: [],
+  currentUser: {},
   loading: false,
   accessToken: null,
 };

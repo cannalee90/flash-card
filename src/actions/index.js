@@ -13,11 +13,18 @@ const demoCards = [
 
 export const FETCH_CARDS = 'FETCH_CARDS';
 export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
+export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 
 export const fetchCards = () => {
   return {
     type: FETCH_CARDS,
     cards: demoCards,
+  }
+}
+
+export const fetchUserInfo = () => {
+  return {
+    type: FETCH_USER_INFO,
   }
 }
 

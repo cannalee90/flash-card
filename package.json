@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "firebase": "^4.12.1",
     "npm": "^5.7.1",
     "query-string": "^6.0.0",
     "react": "^16.2.0",

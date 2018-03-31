@@ -8,8 +8,8 @@ import Popup from './../utils/popup';
 class Signin extends Component {
   constructor(props) {
     super(props);
-    const clistApp = 'b1497163e82bf1dfd9c1'
-    this.githubURL = `https://github.com/login/oauth/authorize?client_id=${clistApp}`
+    const clientId = Config.githubAuth.clientId;
+    this.githubURL = `https://github.com/login/oauth/authorize?client_id=${clientId}`
     this.state = {
       hasCodeParams: false,
     }
@@ -36,7 +36,6 @@ class Signin extends Component {
 
   render() {
     const { hasCodeParams } = this.state;
-    console.log(hasCodeParams);
     return(
       <div>
         {!hasCodeParams && <button onClick={this.requestGithub}>Login</button>}       

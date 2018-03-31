@@ -1,4 +1,4 @@
-import { githubAuth } from '../config';
+import Config from '../config';
 
 const demoCards = [
   {
@@ -22,11 +22,12 @@ export const fetchCards = () => {
 }
 
 export const requestAccessToken = (code) => {
+  const { githubAuth } = Config;
   return {
     type: REQUEST_ACCESS_TOKEN,
     payload: {
       clientId: githubAuth.clientId,
-      clientSecret: '',
+      clientSecret: githubAuth.clientSecret,
       code: code,
     }
   }

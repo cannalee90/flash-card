@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import QueryString from 'query-string';
-
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import Config from './../config';
-import Popup from './../utils/popup';
+import { requestAccessToken } from '../actions';
 
 class Signin extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Signin extends Component {
       this.setState({
         hasCodeParams: true,
       });
-
+      this.props.requestAccessToken(query['code']);
     } else {
       this.setState({
         hasCodeParams: false,
@@ -44,4 +45,14 @@ class Signin extends Component {
   }
 }
 
-export default Signin;
+const mapStateToProps = (state, props) => {
+  return {};
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestAccessToken: (code) => dispatch(requestAccessToken(code)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signin);

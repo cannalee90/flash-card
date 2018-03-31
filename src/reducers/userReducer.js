@@ -1,4 +1,4 @@
-import { SAVE_ACCESS_TOKEN } from './../actions';
+import { SAVE_ACCESS_TOKEN, FETCH_USER_INFO_SUCCESS } from './../actions';
 
 const initialState = {
   currentUser: {},
@@ -12,6 +12,11 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         accessToken: actions.payload.token,
+      }
+    case FETCH_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        currentUser: actions.payload
       }
     default:
       return state;

@@ -14,6 +14,7 @@ const demoCards = [
 export const FETCH_CARDS = 'FETCH_CARDS';
 export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
+export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
 
 export const fetchCards = () => {
   return {
@@ -34,5 +35,12 @@ export const saveAccessToken = (token) => {
     payload: {
       token,
     }
+  }
+}
+
+export const fetchUserInfoSuccess = (user) => {
+  return {
+    type: FETCH_USER_INFO_SUCCESS,
+    payload: user,
   }
 }

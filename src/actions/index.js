@@ -12,7 +12,7 @@ const demoCards = [
 ];
 
 export const FETCH_CARDS = 'FETCH_CARDS';
-export const REQUEST_ACCESS_TOKEN = 'REQUEST_ACCESS_TOKEN';
+export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
 
 export const fetchCards = () => {
   return {
@@ -21,14 +21,11 @@ export const fetchCards = () => {
   }
 }
 
-export const requestAccessToken = (code) => {
-  const { githubAuth } = Config;
+export const saveAccessToken = (token) => {
   return {
-    type: REQUEST_ACCESS_TOKEN,
+    type: SAVE_ACCESS_TOKEN,
     payload: {
-      clientId: githubAuth.clientId,
-      clientSecret: githubAuth.clientSecret,
-      code: code,
+      token,
     }
   }
 }

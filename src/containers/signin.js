@@ -2,44 +2,43 @@ import React, { Component } from 'react';
 import QueryString from 'query-string';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import firebase from '../utils/firebase';
 
 import Config from './../config';
-import { requestAccessToken } from '../actions';
+import { saveAccessToken } from '../actions';
 
 class Signin extends Component {
   constructor(props) {
     super(props);
     const clientId = Config.githubAuth.clientId;
-    this.githubURL = `https://github.com/login/oauth/authorize?client_id=${clientId}`
-    this.state = {
-      hasCodeParams: false,
-    }
+    
+    firebase.auth().getRedirectResult().then((result) => {
+      if (result.credential) {
+        const token = result.credential.accessToken;
+        this.props.saveAccessToken(token);
+        localStorage.setItem('githubAuthToken', token);
+      }
+      const user = result.user;
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.email;
+      const credential = error.credential;
+    });
   }
+
+  
 
   requestGithub = () => {
-    window.location.href = this.githubURL;
-  }
-
-  componentDidMount() {
-    const { search } = this.props.location;
-    const query = QueryString.parse(search);
-    if(query['code']) {
-      this.setState({
-        hasCodeParams: true,
-      });
-      this.props.requestAccessToken(query['code']);
-    } else {
-      this.setState({
-        hasCodeParams: false,
-      })
-    }
+    const provider = new firebase.auth.GithubAuthProvider();    
+    provider.addScope('gist');
+    firebase.auth().signInWithRedirect(provider);
   }
 
   render() {
-    const { hasCodeParams } = this.state;
     return(
       <div>
-        {!hasCodeParams && <button onClick={this.requestGithub}>Login</button>}       
+        <button onClick={this.requestGithub}>Login</button>
       </div>
     )
   }
@@ -51,7 +50,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestAccessToken: (code) => dispatch(requestAccessToken(code)),
+    saveAccessToken: (code) => dispatch(saveAccessToken(code)),
   };
 };
 

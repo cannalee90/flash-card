@@ -15,6 +15,26 @@ export const FETCH_CARDS = 'FETCH_CARDS';
 export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
+export const FETCH_USER_INFO_ERROR = 'FETCH_USER_INFO_ERROR';
+export const FETCH_ACCESS_TOKEN_ERROR = 'FETCH_ACCESS_TOKEN_ERROR';
+
+export const fetchAccessTokenError = (error) => {
+  return {
+    type: FETCH_ACCESS_TOKEN_ERROR,
+    payload: {
+      error,
+    }
+  }
+}
+
+export const fetchUserInfoError = (error) => {
+  return {
+    type: FETCH_USER_INFO_ERROR,
+    payload: {
+      error,
+    }
+  }
+}
 
 export const fetchCards = () => {
   return {

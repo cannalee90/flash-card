@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import firebase from '../utils/firebase';
 
 import Config from './../config';
-import { saveAccessToken } from '../actions';
+import { saveAccessToken, fetchAccessTokenError } from '../actions';
 
 class Signin extends Component {
   constructor(props) {
@@ -20,10 +20,7 @@ class Signin extends Component {
       }
       const user = result.user;
     }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      const email = error.email;
-      const credential = error.credential;
+      this.props.fetchAccessTokenError(error);
     });
   }
 
@@ -51,6 +48,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     saveAccessToken: (code) => dispatch(saveAccessToken(code)),
+    fetchAccessTokenError: (error) => dispatch(fetchAccessTokenError(error)),
   };
 };
 

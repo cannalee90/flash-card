@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
 
-import { FETCH_USER_INFO, fetchUserInfoSuccess } from '../actions';
+import { FETCH_USER_INFO, fetchUserInfoSuccess, fetchUserInfoError } from '../actions';
 
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
@@ -21,6 +21,8 @@ function fetchUserInfo(action$) {
         headers: makeHeader(),
       }).map((user) => {
         return fetchUserInfoSuccess(user.response);
+      }).catch((error) => {
+        return fetchUserInfoError(error);
       })
     });
 

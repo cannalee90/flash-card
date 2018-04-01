@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "env-cmd": "^7.0.0",
+    "firebase": "^4.12.1",
     "npm": "^5.7.1",
     "query-string": "^6.0.0",
     "react": "^16.2.0",
@@ -18,7 +20,7 @@
     "tui-editor": "^1.0.5"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "./node_modules/.bin/env-cmd .env react-app-rewired start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

@@ -7,14 +7,22 @@ import rootEpic from '../epic';
 
 const epicMiddlewre = createEpicMiddleware(rootEpic);
 
-
+const getTokenFromLocalStorate = (preloadedState = {}) => {
+  const accessToken = localStorage.getItem('githubAuthToken');
+  const ret = Object.assign(preloadedState, {
+    user: {
+      accessToken: accessToken,
+    }
+  });
+  return ret;
+}
 
 const configureStore = preloadedState => {
   const store = createStore(
     rootReducer,
-    preloadedState,
+    getTokenFromLocalStorate(preloadedState),
     compose(
-      applyMiddleware(),
+      applyMiddleware(epicMiddlewre),
       DevTools.instrument(),
     ),
   );

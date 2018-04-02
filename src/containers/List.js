@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { fetchCards } from './../actions';
+import Card from '../components/SmallCard';
 
 class List extends Component {
   componentDidMount() {
@@ -11,16 +12,19 @@ class List extends Component {
   render() {
     const { cards } = this.props;
     return(
-      <div>
-        <h1>This is List</h1>
-        <div>
-          <ul>
+      <div className='album py-5 bg-light'>
+        <div className='container'>
+          <div className='row'>
             {cards.map((card) => {
               return (
-                <li>{card.front}</li>
-              )
-            })}   
-          </ul>
+                <Card
+                  key=''
+                  title={card.front}
+                  wrapperClassName='col-md-4'
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     );

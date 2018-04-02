@@ -10,6 +10,8 @@ import List from './List';
 import Signin from './Signin';
 import Nav from './../components/Nav';
 
+import 'bootstrap/dist/css/bootstrap.css';
+
 const Root = ({ store }) => {
   return (
     <Provider store={store}>

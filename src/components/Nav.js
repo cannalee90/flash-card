@@ -4,8 +4,8 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
+  Nav,
  } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
 
 export default class NavbarComponent extends Component {
@@ -15,7 +15,7 @@ export default class NavbarComponent extends Component {
       isOpen: false
     };
   }
-  
+
   toggle =() => {
     this.setState({
       isOpen: !this.state.isOpen
@@ -26,7 +26,7 @@ export default class NavbarComponent extends Component {
     const { isOpen } = this.state;
     return(
       <Navbar color='faded' light expand='md'>
-        <NavbarBrand href='/'>reactstrap</NavbarBrand>
+        <NavbarBrand href='/'>Flashcard</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className='mr-auto' navbar>

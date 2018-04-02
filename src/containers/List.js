@@ -12,15 +12,20 @@ class List extends Component {
   render() {
     const { cards } = this.props;
     return(
-      <div className='row'>
-        {cards.map((card) => {
-          return (
-            <Card
-              key=''
-              wrapperClassName='col-md-4'
-            />
-          );
-        })}
+      <div className='album py-5 bg-light'>
+        <div className='container'>
+          <div className='row'>
+            {cards.map((card) => {
+              return (
+                <Card
+                  key=''
+                  title={card.front}
+                  wrapperClassName='col-md-4'
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }

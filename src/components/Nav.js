@@ -4,7 +4,6 @@ import {
   Navbar,
   NavbarToggler,
   NavbarBrand,
-  Nav,
  } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
@@ -16,6 +15,7 @@ export default class NavbarComponent extends Component {
       isOpen: false
     };
   }
+  
   toggle =() => {
     this.setState({
       isOpen: !this.state.isOpen

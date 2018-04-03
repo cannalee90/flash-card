@@ -18,7 +18,7 @@ const Root = ({ store }) => {
       <div>
         <Nav />
         <Route path='/' exact component={App} />
-        <Route path='/newcard' component={NewCard} />
+        <Route path='/new' component={NewCard} />
         <Route path='/list' component={List} />
         <Route path='/signin' component={Signin} />
         <DevTools />

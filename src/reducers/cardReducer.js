@@ -1,4 +1,4 @@
-import { FETCH_CARDS } from './../actions';
+import { FETCH_GIST_SUCCESS } from './../actions';
 
 const initialState = {
   cards: [],
@@ -6,9 +6,10 @@ const initialState = {
 
 const CardReducer = (state = initialState, actions) => {
   switch(actions.type) {
-    case FETCH_CARDS:
+    case FETCH_GIST_SUCCESS:
       return {
-        cards: actions.cards,
+        ...state,
+        cards: actions.payload,
       };
     default:
       return state;

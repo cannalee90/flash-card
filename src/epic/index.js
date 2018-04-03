@@ -1,14 +1,38 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
 
-import { FETCH_USER_INFO, fetchUserInfoSuccess, fetchUserInfoError } from '../actions';
+import { 
+  FETCH_USER_INFO,
+  FETCH_GIST_ALL,
+  fetchUserInfoSuccess,
+  fetchUserInfoError,
+  fetchGistSuccess,
+  fetchGistError,
+ } from '../actions';
 
+const baseURL = 'https://api.github.com';
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
   const headers =  {
     Authorization: `token ${token}`,
   };
   return headers;
+}
+
+function fetchGists(action$) {
+  return action$
+    .ofType(FETCH_GIST_ALL)
+    .switchMap(({paylaod}) => {
+      return Observable.ajax({
+        url: baseURL + '/gists',
+        method: 'GET',
+        headers: makeHeader(),
+      }).map((res) => {
+        return fetchGistSuccess(res.response);
+      }).catch((error) => {
+        return fetchGistError(error);
+      })
+    })
 }
 
 function fetchUserInfo(action$) {
@@ -28,4 +52,4 @@ function fetchUserInfo(action$) {
 
 }
 
-export default combineEpics(fetchUserInfo);
+export default combineEpics(fetchUserInfo, fetchGists);

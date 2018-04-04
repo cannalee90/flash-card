@@ -30,7 +30,7 @@ function fetchGists(action$) {
       })
       .map(({response}) => response.filter((gist) => gist.public))
       .map((filtered) => fetchGistSuccess(filtered))
-      .catch((error) => fetchGistError(error));
+      .catch((error) => Observable.of(fetchGistError(error)));
     })
 }
 
@@ -44,7 +44,7 @@ function fetchUserInfo(action$) {
         headers: makeHeader(),
       })
       .map((user) => fetchUserInfoSuccess(user.response))
-      .catch((error) => fetchUserInfoError(error))
+      .catch((error) => Observable.of(fetchUserInfoError(error)));
     });
 }
 

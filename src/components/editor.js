@@ -17,7 +17,7 @@ class Editor extends Component {
     this.editor = new TuiEditor({
       el: document.querySelector('#tui-editor'),
       initialEditType: 'markdown',
-      previewStyle: 'vertical',
+      previewStyle: 'tab',
       height: '300px',
       initialValue: currentValue,
     });

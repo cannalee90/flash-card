@@ -17,6 +17,9 @@ export const FETCH_USER_INFO = 'FETCH_USER_INFO';
 export const FETCH_USER_INFO_SUCCESS = 'FETCH_USER_INFO_SUCCESS';
 export const FETCH_USER_INFO_ERROR = 'FETCH_USER_INFO_ERROR';
 export const FETCH_ACCESS_TOKEN_ERROR = 'FETCH_ACCESS_TOKEN_ERROR';
+export const FETCH_GIST_SUCCESS = 'FETCH_GIST_SUCCESS';
+export const FETCH_GIST_ERROR = 'FETCH_GIST_ERROR';
+export const FETCH_GIST_ALL = 'FETCH_GIST_ALL';
 
 export const fetchAccessTokenError = (error) => {
   return {
@@ -62,5 +65,25 @@ export const fetchUserInfoSuccess = (user) => {
   return {
     type: FETCH_USER_INFO_SUCCESS,
     payload: user,
+  }
+}
+
+export const fetchGistSuccess = (gists) => {
+  return {
+    type: FETCH_GIST_SUCCESS,
+    payload: gists,
+  };
+}
+
+export const fetchGistError = (error) => {
+  return {
+    type: FETCH_GIST_ERROR,
+    payload: error,
+  };
+}
+
+export const fetchGistAll = () => {
+  return {
+    type: FETCH_GIST_ALL,
   }
 }

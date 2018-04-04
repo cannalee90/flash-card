@@ -11,6 +11,7 @@ import Signin from './Signin';
 import Nav from './../components/Nav';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import '../style/app.css';
 
 const Root = ({ store }) => {
   return (

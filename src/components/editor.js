@@ -36,8 +36,13 @@ class Editor extends Component {
   }
 
   render() {
+    const {
+      wrapperClassName,
+      label,
+    } = this.props;
     return(
-      <div>
+      <div className={wrapperClassName}>
+        {label && <label>{label}</label>}
         <div id='tui-editor' ref={this.setEditor}/>
       </div>      
     );

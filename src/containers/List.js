@@ -13,7 +13,7 @@ class List extends Component {
     const { cards } = this.props;
     return(
       <div className='album py-5 bg-light'>
-        <div className='container top-padding-20'>
+        <div className='container'>
           <div className='row'>
             {cards.map((card) => {
               const fileName = Object.keys(card.files)[0];

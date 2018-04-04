@@ -11,11 +11,16 @@ class NewCard extends Component {
 
   render() {
     return(
-      <div>
-        <h1>This is new Card</h1>
-        <FormTest
-          onSubmit={this.onSubmit}
-        />
+      <div className='py-5'>
+        <div className='container'>
+          <div className='row'>
+            <div className='col-md-8 offset-md-2 col-lg-8 offset-lg-2'>
+              <FormTest
+                onSubmit={this.onSubmit}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

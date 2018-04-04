@@ -22,16 +22,15 @@ const makeHeader = () => {
 function fetchGists(action$) {
   return action$
     .ofType(FETCH_GIST_ALL)
-    .switchMap(({paylaod}) => {
+    .switchMap(({payload}) => {
       return Observable.ajax({
         url: baseURL + '/gists',
         method: 'GET',
         headers: makeHeader(),
-      }).map((res) => {
-        return fetchGistSuccess(res.response);
-      }).catch((error) => {
-        return fetchGistError(error);
       })
+      .map(({response}) => response.filter((gist) => gist.public))
+      .map((filtered) => fetchGistSuccess(filtered))
+      .catch((error) => fetchGistError(error));
     })
 }
 
@@ -43,13 +42,11 @@ function fetchUserInfo(action$) {
         url: 'https://api.github.com/user',
         method: 'GET',
         headers: makeHeader(),
-      }).map((user) => {
-        return fetchUserInfoSuccess(user.response);
-      }).catch((error) => {
-        return fetchUserInfoError(error);
       })
+      .map((user) => fetchUserInfoSuccess(user.response))
+      .catch((error) => fetchUserInfoError(error))
     });
-
 }
+
 
 export default combineEpics(fetchUserInfo, fetchGists);

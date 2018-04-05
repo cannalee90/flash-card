@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
+import { postNewGist } from '../actions/index';
 
 import FormTest from './form';
 
-class NewCard extends Component {
-  
+class NewCard extends Component {  
   onSubmit = (values) => {
+    this.props.postNewGist(values);
   }
 
   render() {
@@ -26,4 +27,10 @@ class NewCard extends Component {
   }
 }
 
-export default withRouter(connect(null, null)(NewCard))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postNewGist: (values) => dispatch(postNewGist(values)),
+  };
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(NewCard))

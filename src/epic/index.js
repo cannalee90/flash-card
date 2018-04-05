@@ -4,17 +4,22 @@ import { combineEpics } from 'redux-observable';
 import { 
   FETCH_USER_INFO,
   FETCH_GIST_ALL,
+  POST_NEW_GIST,
   fetchUserInfoSuccess,
   fetchUserInfoError,
   fetchGistSuccess,
   fetchGistError,
+  postNewGistError,
+  postNewGistSuccess,
  } from '../actions';
 
 const baseURL = 'https://api.github.com';
+
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
   const headers =  {
     Authorization: `token ${token}`,
+    'Content-Type': 'application/json',
   };
   return headers;
 }
@@ -48,5 +53,20 @@ function fetchUserInfo(action$) {
     });
 }
 
+function postNewGist(action$) {
+  return action$
+    .ofType(POST_NEW_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'POST',
+        url: baseURL + '/gists',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => postNewGistSuccess())
+      .catch((error) => Observable.of(postNewGistError(error)));
+    })
+}
 
-export default combineEpics(fetchUserInfo, fetchGists);
+
+export default combineEpics(fetchUserInfo, fetchGists, postNewGist);

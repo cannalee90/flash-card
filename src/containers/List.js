@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { fetchCards } from './../actions';
+import { fetchGistAll } from '../actions';
 import Card from '../components/SmallCard';
 
 class List extends Component {
   componentDidMount() {
-    this.props.fetchCards();
+    this.props.fetchGistAll();
   }
 
   render() {
@@ -16,10 +16,11 @@ class List extends Component {
         <div className='container'>
           <div className='row'>
             {cards.map((card) => {
+              const fileName = Object.keys(card.files)[0];
               return (
                 <Card
                   key=''
-                  title={card.front}
+                  title={fileName}
                   wrapperClassName='col-md-4'
                 />
               );
@@ -31,13 +32,16 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const { card } = state;
+const mapStateToProps = ({card}, props) => {
   return {
     cards: card.cards,
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
-  fetchCards,
-})(List))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGistAll: () => dispatch(fetchGistAll()),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List))

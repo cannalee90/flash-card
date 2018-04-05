@@ -11,6 +11,7 @@ import Signin from './Signin';
 import Nav from './../components/Nav';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import '../style/app.css';
 
 const Root = ({ store }) => {
   return (
@@ -18,7 +19,7 @@ const Root = ({ store }) => {
       <div>
         <Nav />
         <Route path='/' exact component={App} />
-        <Route path='/newcard' component={NewCard} />
+        <Route path='/new' component={NewCard} />
         <Route path='/list' component={List} />
         <Route path='/signin' component={Signin} />
         <DevTools />

@@ -17,11 +17,10 @@ class Form extends Component {
           label='Front of Card'
         />
         <Field
-          name='Back of card'
+          name='back'
           label='Back of Card'
           component={EditorWrapper}
           wrapperClassName='mb-3'
-          label='Back of Card'
         />
         <div className='input-group mb-3'>
           <button

@@ -15,12 +15,13 @@ class List extends Component {
       <div className='album py-5 bg-light'>
         <div className='container'>
           <div className='row'>
-            {cards.map((card) => {
-              const fileName = Object.keys(card.files)[0];
+            {Object.keys(cards).map((key) => {
+              const obj = cards[key];
               return (
                 <Card
-                  key=''
-                  title={fileName}
+                  key={key}
+                  title={key.split('.')[0]}
+                  rawURL={obj.raw_url}
                   wrapperClassName='col-md-4'
                 />
               );
@@ -32,7 +33,7 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = ({card}, props) => {
+const mapStateToProps = ({ card }, props) => {
   return {
     cards: card.cards,
   }

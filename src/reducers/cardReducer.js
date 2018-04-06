@@ -8,8 +8,9 @@ import {
 } from './../actions';
 
 const initialState = {
-  cards: [],
+  cards: {},
   error: {},
+  gist: {},
   isLoading: false,
 };
 
@@ -24,7 +25,8 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         isLoading: false,
-        cards: actions.payload,
+        cards: actions.payload.files,
+        gist: actions.payload,
       };
     case POST_NEW_GIST:
       return {

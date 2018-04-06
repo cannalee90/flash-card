@@ -8,7 +8,7 @@ import {
 const initialState = {
   currentUser: {},
   isLoading: false,
-  accessToken: null,
+  accessToken: localStorage.getItem('githubAuthToken') ? localStorage.getItem('githubAuthToken') : null,
   error: null,
 };
 

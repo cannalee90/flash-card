@@ -20,7 +20,7 @@ const getTokenFromLocalStorate = (preloadedState = {}) => {
 const configureStore = preloadedState => {
   const store = createStore(
     rootReducer,
-    getTokenFromLocalStorate(preloadedState),
+    // getTokenFromLocalStorate(preloadedState),
     compose(
       applyMiddleware(epicMiddlewre),
       DevTools.instrument(),

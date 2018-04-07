@@ -23,6 +23,7 @@ export const FETCH_GIST_ALL = 'FETCH_GIST_ALL';
 export const POST_NEW_GIST = 'POST_NEW_GIST';
 export const POST_NEW_GIST_SUCCESS = 'POST_NEW_GIST_SUCCESS';
 export const POST_NEW_GIST_ERROR = 'POST_NEW_GIST_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 const createNewGistPayload = (values) => {
   return {
@@ -122,3 +123,8 @@ export const postNewGistError = (error) => {
     paylaod: error,
   }
 }
+export const clearError = () => {
+  return {
+    type: CLEAR_ERROR,
+  };
+};

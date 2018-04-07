@@ -49,7 +49,8 @@ export default class NavbarComponent extends Component {
               className='nav-link'
               to='https://github.com/cannalee90/flash-card'
               text='Github'
-              />
+              target={'_flashcard'}
+            />
           </Nav>
         </Collapse>
       </Navbar>

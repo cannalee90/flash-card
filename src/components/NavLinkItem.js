@@ -7,7 +7,15 @@ export default (props) => {
     to,
     text,
     className,
-   } = props;
+    target,
+  } = props;
+  if(to.indexOf('http') !== -1 || to.indexOf('https') !== -1 || to.indexOf('www') !== -1 ) {
+    return (
+      <NavItem>
+        <a className={className} href={to} target={target}>{text}</a>
+      </NavItem>
+    )
+  }
   return (
     <NavItem>
       <Link className={className} to={to}>{text}</Link>

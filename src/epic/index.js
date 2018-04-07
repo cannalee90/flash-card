@@ -24,20 +24,58 @@ const makeHeader = () => {
   return headers;
 }
 
+const getNextPage = (xhr) => {
+  try {
+    xhr.getRequestHeader('link');
+  } catch(e) {
+
+  }
+}
+
 function fetchGists(action$) {
   return action$
     .ofType(FETCH_GIST_ALL)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        url: baseURL + '/gists',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
         method: 'GET',
         headers: makeHeader(),
       })
-      .map(({response}) => response.filter((gist) => gist.public))
+      .map((res) => {
+        return res.response;
+      })
       .map((filtered) => fetchGistSuccess(filtered))
       .catch((error) => Observable.of(fetchGistError(error)));
     })
 }
+
+// function fetchGists(action$) {
+//   return action$
+//     .ofType(FETCH_GIST_ALL)
+//     .switchMap(({payload}) => {
+//       return Observable.ajax({
+//         url: baseURL + '/gists',
+//         method: 'GET',
+//         headers: makeHeader(),
+//       })
+//       .map(({response}) => {
+//         return Observable.from(response);
+//       })
+//       .concatMap((arr) => {
+//         return arr;
+//       })
+//       .filter((res) => {
+//         return res.public;
+//       })
+//       .toArray()
+//       .map((filtered) => {
+//         console.log('filstered', filtered);
+//         return fetchGistSuccess(filtered);
+//       })
+//       .catch((error) => Observable.of(fetchGistError(error)));
+//     })
+// }
+
 
 function fetchUserInfo(action$) {
   return action$
@@ -58,8 +96,8 @@ function postNewGist(action$) {
     .ofType(POST_NEW_GIST)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        method: 'POST',
-        url: baseURL + '/gists',
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
         headers: makeHeader(),
         body: payload,
       })

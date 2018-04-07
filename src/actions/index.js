@@ -23,6 +23,9 @@ export const FETCH_GIST_ALL = 'FETCH_GIST_ALL';
 export const POST_NEW_GIST = 'POST_NEW_GIST';
 export const POST_NEW_GIST_SUCCESS = 'POST_NEW_GIST_SUCCESS';
 export const POST_NEW_GIST_ERROR = 'POST_NEW_GIST_ERROR';
+export const DELETE_GIST = 'DELETE_GIST';
+export const DELETE_GIST_SUCCESS = 'DELETE_GIST_SUCCESS';
+export const DELETE_GIST_ERROR = 'DELETE_GIST_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 const createNewGistPayload = (values) => {
@@ -33,6 +36,14 @@ const createNewGistPayload = (values) => {
       [values.front + '.md']: {
         content: values.back
       }
+    }
+  }
+}
+
+const deleteGistPayload = (filename) => {
+  return {
+    files: {
+      [filename + '.md']: null,
     }
   }
 }
@@ -123,6 +134,29 @@ export const postNewGistError = (error) => {
     paylaod: error,
   }
 }
+
+export const deleteGist = (filename) => {
+  return {
+    type: DELETE_GIST,
+    payload: deleteGistPayload(filename),
+  }
+}
+
+export const deleteGistSuccess = (payload) => {
+  return {
+    type: DELETE_GIST_SUCCESS,
+    payload,
+  };
+}
+
+export const deleteGistError = (error) => {
+  return {
+    type: DELETE_GIST_ERROR,
+    payload: error,
+  }
+}
+
+
 export const clearError = () => {
   return {
     type: CLEAR_ERROR,

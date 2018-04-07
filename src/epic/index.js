@@ -5,12 +5,17 @@ import {
   FETCH_USER_INFO,
   FETCH_GIST_ALL,
   POST_NEW_GIST,
+  DELETE_GIST,
+  DELETE_GIST_SUCCESS,
+  DELETE_GIST_ERROR,
   fetchUserInfoSuccess,
   fetchUserInfoError,
   fetchGistSuccess,
   fetchGistError,
   postNewGistError,
   postNewGistSuccess,
+  deleteGistError,
+  deleteGistSuccess,
  } from '../actions';
 
 const baseURL = 'https://api.github.com';
@@ -106,5 +111,19 @@ function postNewGist(action$) {
     })
 }
 
+function deleteGist(action$) {
+  return action$
+    .ofType(DELETE_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => deleteGistSuccess(res.response))
+      .catch((error) => Observable.of(deleteGistError(error)));
+    });
+}
 
-export default combineEpics(fetchUserInfo, fetchGists, postNewGist);
+export default combineEpics(fetchUserInfo, fetchGists, postNewGist, deleteGist);

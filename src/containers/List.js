@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { fetchGistAll } from '../actions';
+import { 
+  fetchGistAll,
+  deleteGist,
+} from '../actions';
 import Card from '../components/SmallCard';
 
 class List extends Component {
@@ -23,6 +26,7 @@ class List extends Component {
                   title={key.split('.')[0]}
                   rawURL={obj.raw_url}
                   wrapperClassName='col-md-4'
+                  deleteGist={this.props.deleteGist}
                 />
               );
             })}
@@ -42,6 +46,7 @@ const mapStateToProps = ({ card }, props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchGistAll: () => dispatch(fetchGistAll()),
+    deleteGist: (filename)=> dispatch(deleteGist(filename)),
   }
 }
 

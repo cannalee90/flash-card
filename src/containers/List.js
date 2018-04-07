@@ -12,8 +12,8 @@ class List extends Component {
   render() {
     const { cards } = this.props;
     return(
-      <div className='album py-5 bg-light'>
-        <div className='container'>
+      <div> 
+        <div className='container' style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
           <div className='row'>
             {Object.keys(cards).map((key) => {
               const obj = cards[key];

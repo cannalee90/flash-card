@@ -3,7 +3,8 @@ import {
   FETCH_USER_INFO,
   FETCH_USER_INFO_SUCCESS,
   FETCH_USER_INFO_ERROR,
-  FETCH_ACCESS_TOKEN_ERROR } from './../actions';
+  CLEAR_ERROR,
+} from './../actions';
 
 const initialState = {
   currentUser: {},
@@ -42,6 +43,11 @@ const CardReducer = (state = initialState, actions) => {
         ...state,
         isLoading: false,
         error: actions.payload.error,
+      }
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: {},
       }
     default:
       return state;

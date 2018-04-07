@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import { Alert } from 'reactstrap';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+
+import { clearError } from '../actions';
 
  class AlertComponent extends Component {
   constructor(props){
     super(props);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if(this.props.location.pathname != newProps.location.pathname) {
+      this.props.clearError();
+    }
   }
 
   render() {
@@ -17,7 +26,7 @@ import { connect } from 'react-redux';
         <Alert color='danger'>
           <ul style={{marginBottom: '0px'}}>
             {errors.map((error) => {
-              const message = `${error.response.code} ${error.response.message || error.message}`;
+              const message = `${error.status} ${error.response.message || error.message}`;
               return <li>{message}</li>
             })}
           </ul>
@@ -25,6 +34,7 @@ import { connect } from 'react-redux';
       </div>
     )
   }
+  
 }
 
 const mapStateToProps = (state, props) => {
@@ -40,4 +50,10 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, null)(AlertComponent);
+function mapDispatchToProps(dispatch) {
+  return {
+    clearError: () => dispatch(clearError()),
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AlertComponent));

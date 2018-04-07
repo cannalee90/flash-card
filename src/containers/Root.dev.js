@@ -20,11 +20,11 @@ const Root = ({ store }) => {
     <Provider store={store}>
       <div>
         <Nav/>
-          <Alert />
-          <Route path='/' exact component={App} />
-          <Route path='/new' component={NewCard} />
-          <Route path='/list' component={List} />
-          <Route path='/signin' component={Signin} />
+        <Alert />
+        <Route path='/' exact component={App} />
+        <Route path='/new' component={NewCard} />
+        <Route path='/list' component={List} />
+        <Route path='/signin' component={Signin} />
         <DevTools />
       </div>
     </Provider>

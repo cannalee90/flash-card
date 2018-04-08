@@ -9,6 +9,7 @@ import {
 
 import Form from './form';
 import { convertFileToFront } from '../utils/flashcard';
+import { isEmptyObj } from '../utils';
 
 class EditCard extends Component {  
   onSubmit = (values) => {
@@ -16,7 +17,7 @@ class EditCard extends Component {
   }
 
   componentWillMount() {
-    if(!Object.keys(this.props.cards).length) {
+    if(isEmptyObj(this.props.cards)) {
       this.props.fetchGistAll();
     }
   }
@@ -24,7 +25,7 @@ class EditCard extends Component {
   render() {
     const { cardname } = this.props.match.params;
     const card = this.props.cards[`${cardname}.md`] || {};
-    if(!Object.keys(card).length) {
+    if(isEmptyObj(card)) {
       return null;
     }
     return(

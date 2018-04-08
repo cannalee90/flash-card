@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 
 import { clearError } from '../actions';
+import { isEmptyObj } from '../utils';
 
- class AlertComponent extends Component {
+class AlertComponent extends Component {
   constructor(props){
     super(props);
   }
@@ -39,12 +40,13 @@ import { clearError } from '../actions';
 
 const mapStateToProps = (state, props) => {
   const errors = [];
-  Object.keys(state).forEach((key) => {
-    const reducerError = state[key].error;
-    if(reducerError !== undefined && reducerError !== null && Object.keys(reducerError).length !== 0) {
-      errors.push(reducerError);
-    }
-  })
+  Object.keys(state)
+    .forEach((key) => {
+      const reducerError = state[key].error;
+      if(reducerError !== undefined && reducerError !== null && !isEmptyObj(reducerError)) {
+        errors.push(reducerError);
+      }
+    });
   return {
     errors
   }

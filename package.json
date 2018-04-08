@@ -6,6 +6,7 @@
     "bootstrap": "^4.0.0",
     "env-cmd": "^7.0.0",
     "firebase": "^4.12.1",
+    "marked": "^0.3.19",
     "npm": "^5.7.1",
     "query-string": "^6.0.0",
     "react": "^16.2.0",

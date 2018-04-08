@@ -1,3 +1,4 @@
+import { convertFrontToFile } from '../utils/flashcard';
 
 export const SAVE_ACCESS_TOKEN = 'SAVE_ACCESS_TOKEN';
 export const FETCH_USER_INFO = 'FETCH_USER_INFO';
@@ -24,7 +25,7 @@ const createNewGistPayload = (values) => {
     public: true,
     description: values.description,
     files: {
-      [values.front + '.md']: {
+      [convertFrontToFile(values.front)]: {
         content: values.back
       }
     }

@@ -16,6 +16,11 @@ import {
   postNewGistSuccess,
   deleteGistError,
   deleteGistSuccess,
+  EDIT_GIST,
+  EDIT_GIST_SUCCESS,
+  EDIT_GIST_ERROR,
+  editGistError,
+  editGistSuccess,
  } from '../actions';
 
 const baseURL = 'https://api.github.com';
@@ -130,4 +135,19 @@ function deleteGist(action$) {
     });
 }
 
-export default combineEpics(fetchUserInfo, fetchGists, postNewGist, deleteGist);
+function editGist(action$) {
+  return action$
+    .ofType(EDIT_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => editGistSuccess(res.response))
+      .catch((error) => Observable.of(editGistError(error)))
+    });
+}
+
+export default combineEpics(fetchUserInfo, fetchGists, postNewGist, deleteGist, editGist);

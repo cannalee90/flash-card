@@ -6,6 +6,7 @@ import {
   deleteGist,
 } from '../actions';
 import Card from '../components/SmallCard';
+import { convertFileToFront } from '../utils/flashcard';
 
 class List extends Component {
   componentDidMount() {
@@ -24,10 +25,11 @@ class List extends Component {
           <div className='row'>
             {Object.keys(cards).map((key) => {
               const obj = cards[key];
+              const front = convertFileToFront(key);
               return (
                 <Card
                   key={key}
-                  title={key.split('.')[0]}
+                  title={front}
                   rawURL={obj.raw_url}
                   wrapperClassName='col-md-4'
                   deleteGist={this.props.deleteGist}

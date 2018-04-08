@@ -8,6 +8,7 @@ import {
 } from '../actions/index';
 
 import Form from './form';
+import { convertFileToFront } from '../utils/flashcard';
 
 class EditCard extends Component {  
   onSubmit = (values) => {
@@ -35,7 +36,7 @@ class EditCard extends Component {
                 form={'editCardForm'}
                 onSubmit={this.onSubmit}
                 initialValues={{
-                  front: card.filename,
+                  front: convertFileToFront(card.filename),
                   back: card.content,
                 }}
               />

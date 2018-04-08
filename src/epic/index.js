@@ -19,6 +19,10 @@ import {
  } from '../actions';
 
 const baseURL = 'https://api.github.com';
+const addTimeStamp = (url) => {
+  const timestamp = new Date();
+  return `${url}?timestamp=${timestamp.getTime()}`
+}
 
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
@@ -42,7 +46,7 @@ function fetchGists(action$) {
     .ofType(FETCH_GIST_ALL)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        url: addTimeStamp(baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae'),
         method: 'GET',
         headers: makeHeader(),
       })

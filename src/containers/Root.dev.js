@@ -6,6 +6,7 @@ import DevTools from './DevTools';
 
 import App from './App';
 import NewCard from './NewCard';
+import EditCard from './EditCard';
 import List from './List';
 import Signin from './Signin';
 
@@ -24,6 +25,7 @@ const Root = ({ store }) => {
         <Route path='/' exact component={App} />
         <Route path='/new' component={NewCard} />
         <Route path='/list' component={List} />
+        <Route path='/edit/:cardname' component={EditCard} />
         <Route path='/signin' component={Signin} />
         <DevTools />
       </div>

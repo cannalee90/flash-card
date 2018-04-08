@@ -27,6 +27,10 @@ export const DELETE_GIST = 'DELETE_GIST';
 export const DELETE_GIST_SUCCESS = 'DELETE_GIST_SUCCESS';
 export const DELETE_GIST_ERROR = 'DELETE_GIST_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
+export const EDIT_GIST = 'EDIT_GIST';
+export const EDIT_GIST_SUCCESS = 'EDIT_GIST_SUCCESS';
+export const EDIT_GIST_ERROR = 'EDIT_GIST_ERROR';
+
 
 const createNewGistPayload = (values) => {
   return {
@@ -156,9 +160,29 @@ export const deleteGistError = (error) => {
   }
 }
 
-
 export const clearError = () => {
   return {
     type: CLEAR_ERROR,
   };
 };
+
+export const editGist = (values) => {
+  return {
+    type: EDIT_GIST,
+    payload: createNewGistPayload(values)
+  }
+}
+
+export const editGistSuccess = (payload) => {
+  return {
+    type: EDIT_GIST_SUCCESS,
+    payload,
+  };
+};
+
+export const editGistError = (error) => {
+  return {
+    type: EDIT_GIST_ERROR,
+    payload: error,
+  }
+}

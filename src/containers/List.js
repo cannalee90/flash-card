@@ -12,6 +12,10 @@ class List extends Component {
     this.props.fetchGistAll();
   }
 
+  editGist = (title) => {
+    this.props.history.push(`/edit/${title}`);
+  }
+
   render() {
     const { cards } = this.props;
     return(
@@ -27,6 +31,7 @@ class List extends Component {
                   rawURL={obj.raw_url}
                   wrapperClassName='col-md-4'
                   deleteGist={this.props.deleteGist}
+                  editGist={this.editGist}
                 />
               );
             })}

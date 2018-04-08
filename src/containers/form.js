@@ -5,6 +5,10 @@ import { RenderTextInput } from './../common/DefaultFormWrapper';
 import EditorWrapper from './../common/EditorWrapper';
 
 class Form extends Component {
+  componentWillUnmount() {
+    this.props.destroy();
+  }
+
   render() {
     const { handleSubmit, submitting, pristine } = this.props;
     return(

@@ -37,7 +37,6 @@ class Form extends Component {
 }
 
 Form = reduxForm({
-  form: 'newcard'
 })(Form)
 
 export default Form;

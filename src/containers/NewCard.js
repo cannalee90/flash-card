@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { postNewGist } from '../actions/index';
 
-import FormTest from './form';
+import Form from './form';
 
 class NewCard extends Component {  
   onSubmit = (values) => {
@@ -16,8 +16,13 @@ class NewCard extends Component {
         <div className='container'>
           <div className='row'>
             <div className='col-md-8 offset-md-2 col-lg-8 offset-lg-2'>
-              <FormTest
+              <Form
                 onSubmit={this.onSubmit}
+                form={'newCardForm'}
+                initialValues={{
+                  front: '',
+                  back: '',
+                }}
               />
             </div>
           </div>

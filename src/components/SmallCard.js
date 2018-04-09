@@ -33,7 +33,6 @@ export default class SmallCard extends Component {
                 <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.editGist}>Edit</Button>                
                 <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.deleteGist}>Remove</Button>
               </div>
-              <small className='text-muted'>9 mins</small>
             </div>
           </div>
         </div>

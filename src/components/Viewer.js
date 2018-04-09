@@ -8,12 +8,12 @@ export default class Viewer extends Component {
   }
 
   createMarkup = () => {
-    const __html = marked('# Hello World');
+    const { content } = this.props;
+    const __html = marked(content);
     return {__html: __html};
   }
 
   render() {
-    const { content } = this.props;
     return (
       <div dangerouslySetInnerHTML={this.createMarkup()} />
     );

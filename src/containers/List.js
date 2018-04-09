@@ -6,6 +6,7 @@ import {
   deleteGist,
 } from '../actions';
 import Card from '../components/SmallCard';
+import CardPresentation from '../components/CardPresentation';
 import { convertFileToFront } from '../utils/flashcard';
 
 class List extends Component {
@@ -22,6 +23,16 @@ class List extends Component {
     return(
       <div> 
         <div className='container' style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
+          <div className='row'>
+            <CardPresentation
+              front='Process'
+              back={
+                `In computing, a process is an instance of a computer program that is being executed.
+                It contains the program code and its current activity.
+                Depending on the operating system (OS), a process may be made up of multiple threads of execution that execute instructions concurrently.`
+              }
+            />
+          </div>
           <div className='row'>
             {Object.keys(cards).map((key) => {
               const obj = cards[key];

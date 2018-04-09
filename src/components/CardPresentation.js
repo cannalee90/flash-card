@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Viewer from './Viewer';
+import { convertFileToFront } from '../utils/flashcard';
 
 const cardStyle = {
   height: '300px',
@@ -35,7 +36,6 @@ class CardPresentation extends Component {
   }
 
   flipCard = () => {
-    console.log(this.state);
     this.setState({
       status: !this.state.status,
     });
@@ -45,10 +45,11 @@ class CardPresentation extends Component {
     const {
       wrapperClassName,
       className,
-      front,
-      back,
+      currentCard,
     } = this.props;
     const { status } = this.state;
+    const front = convertFileToFront(currentCard.filename);
+    const back = currentCard.content;
     return (
       <div className={wrapperClassName} style={{width: '100%'}}>
         <div className={className} style={cardStyle}>

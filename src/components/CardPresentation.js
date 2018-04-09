@@ -53,14 +53,14 @@ class CardPresentation extends Component {
     return (
       <div className={wrapperClassName} style={{width: '100%'}}>
         <div className={className} style={cardStyle}>
-          <div style={leftBtn}>
+          <div style={leftBtn} onClick={this.props.prevCard}>
             left
           </div>
           <div style={content} onClick={this.flipCard}>
             {status && <h1>{front}</h1>}
             {!status && <Viewer content={back}/>}
           </div>
-          <div style={rightBtn}>
+          <div style={rightBtn} onClick={this.props.nextCard}>
             right
           </div>
         </div>

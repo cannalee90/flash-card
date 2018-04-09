@@ -47,9 +47,21 @@ class CardPresentation extends Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    if(newProps.currentCard != this.props.currentCard) {
+      this.setState({
+        status: true,
+      })
+    }
+  }
+
   componentDidMount() {
     this.changeElementSize();
     window.addEventListener('resize', this.changeElementSize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.changeElementSize);
   }
 
   changeElementSize = () => {
@@ -63,10 +75,6 @@ class CardPresentation extends Component {
     document.querySelector('.rightBtn').style.flexBasis =  flexBasis;
     document.querySelector('.leftBtn').style.marginLeft = `${marginLeft}px`;
     document.querySelector('.rightBtn').style.marginRight =  `${marginRight}px`;
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.changeElementSize);
   }
 
   flipCard = () => {

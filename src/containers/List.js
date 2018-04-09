@@ -95,8 +95,8 @@ class List extends Component {
     const { cards } = this.props;
     const { currentCard } = this.state;
     return(
-      <div> 
-        <div className='container' style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
+      <div style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
+        <div className='container'>
           <div className='row'>
             <CardPresentation
               nextCard={this.nextCard}
@@ -104,6 +104,8 @@ class List extends Component {
               currentCard={currentCard}
             />
           </div>
+        </div>
+        <div className='container'>
           <div className='row'>
             {Object.keys(cards).map((key) => {
               const obj = cards[key];

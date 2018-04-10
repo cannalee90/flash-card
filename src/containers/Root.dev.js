@@ -9,6 +9,7 @@ import NewCard from './NewCard';
 import EditCard from './EditCard';
 import List from './List';
 import Signin from './Signin';
+import Check from './Check';
 
 import Nav from './../components/Nav';
 import Alert from '../components/Alert';
@@ -26,6 +27,7 @@ const Root = ({ store }) => {
         <Route path='/new' component={NewCard} />
         <Route path='/list' component={List} />
         <Route path='/edit/:cardname' component={EditCard} />
+        <Route path='/check' component={Check} />
         <Route path='/signin' component={Signin} />
         <DevTools />
       </div>

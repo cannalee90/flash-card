@@ -66,9 +66,9 @@ class CardPresentation extends Component {
 
   changeElementSize = () => {
     const windowWidth = window.innerWidth;
-    const containerWidth = document.querySelector('.container').offsetWidth;
+    const containerWidth = document.querySelector('#cardPresenter').offsetWidth;
     const width = parseInt(windowWidth - containerWidth);
-    const flexBasis = `${width}px`;
+    const flexBasis = `${width / 2}px`;
     const marginLeft = (width / 2) * -1;
     const marginRight = (width / 2) * -1;
     document.querySelector('.leftBtn').style.flexBasis =  flexBasis;
@@ -94,7 +94,7 @@ class CardPresentation extends Component {
     const front = convertFileToFront(currentCard.filename);
     const back = currentCard.content;
     return (
-      <div className={wrapperClassName} style={{width: '100%'}}>
+      <div className={`${wrapperClassName}`} id='cardPresenter' style={{width: '100%'}}>
         <div className={className} style={cardStyle}>
           <div className='leftBtn' style={leftBtn} onClick={this.props.prevCard}>
             <FontAwesomeIcon icon={angleLeft} />

@@ -29,7 +29,6 @@ export default class SmallCard extends Component {
             </p>
             <div className='d-flex justify-content-between align-items-center'>
               <div className='btn-group'>
-                <Button type='button' className='btn-sm btn-outline-secondary'>View</Button>
                 <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.editGist}>Edit</Button>                
                 <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.deleteGist}>Remove</Button>
               </div>

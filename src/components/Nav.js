@@ -6,14 +6,23 @@ import {
   NavbarBrand,
   Nav,
  } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
 
-export default class NavbarComponent extends Component {
+class NavbarComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isOpen: false
     };
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.location.pathname != newProps.location.pathname) {
+      this.setState({
+        isOpen: false,
+      });
+    }
   }
 
   toggle =() => {
@@ -25,39 +34,39 @@ export default class NavbarComponent extends Component {
   render() {
     const { isOpen } = this.state;
     return(
-      <Navbar color='faded' light expand='md'>
-        <NavbarBrand href='/'>Flashcard</NavbarBrand>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className='mr-auto' navbar>
-            <NavLinkItem
-              className='nav-link'
-              to='/list'
-              text='List'
-              onClick={this.toggle}
+      <div className='container'>
+        <Navbar color='faded' light expand='md'>
+          <NavbarBrand href='/'>Flashcard</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className='mr-auto' navbar>
+              <NavLinkItem
+                className='nav-link'
+                to='/list'
+                text='List'
+                />
+              <NavLinkItem
+                className='nav-link'
+                to='/new'
+                text='New Card'
+                />
+              <NavLinkItem
+                className='nav-link'
+                to='/check'
+                text='Check'
+                />
+              <NavLinkItem
+                className='nav-link'
+                to='https://github.com/cannalee90/flash-card'
+                text='Github'
+                target={'_flashcard'}
               />
-            <NavLinkItem
-              className='nav-link'
-              to='/new'
-              text='New Card'
-              onClick={this.toggle}
-              />
-            <NavLinkItem
-              className='nav-link'
-              to='/check'
-              text='Check'
-              onClick={this.toggle}
-              />
-            <NavLinkItem
-              className='nav-link'
-              to='https://github.com/cannalee90/flash-card'
-              text='Github'
-              target={'_flashcard'}
-              onClick={this.toggle}
-            />
-          </Nav>
-        </Collapse>
-      </Navbar>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
     );
   }
 }
+
+export default withRouter(NavbarComponent)

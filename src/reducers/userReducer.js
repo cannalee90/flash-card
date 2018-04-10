@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
   signIn: false,
   accessToken: localStorage.getItem('githubAuthToken') ? localStorage.getItem('githubAuthToken') : null,
-  error: null,
+  error: {},
 };
 
 const CardReducer = (state = initialState, actions) => {
@@ -21,7 +21,6 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         isLoading: true,
-        signIn: true,
       }
     case SAVE_ACCESS_TOKEN:
       return {
@@ -33,6 +32,7 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         isLoading: false,
+        signIn: false,
         currentUser: actions.payload,
       }
     case FETCH_USER_INFO_ERROR:

@@ -3,8 +3,18 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { fetchUserInfo } from '../actions';
+import { isEmptyObj } from '../utils';
 
 class App extends Component {
+  componentWillReceiveProps(newProps) {
+    if(this.props.user.error !== newProps.user.error || !isEmptyObj(newProps.user.error)) {
+      this.props.history.push({
+        pathname: '/',
+        state: { errorClear: false },
+      })
+    }
+  }
+
   componentDidMount() {
     this.props.fetchUserInfo();
   }
@@ -12,7 +22,9 @@ class App extends Component {
   render() {
     return(
       <div>
-        <h1>This is App</h1>
+        <div className='container'>
+          <h1>Hello World</h1>
+        </div>
       </div>
     );
   }
@@ -24,4 +36,10 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(App))
+function mapStateToProps({user}) {
+  return {
+    user,
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

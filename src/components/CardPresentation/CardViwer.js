@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Viewer from './Viewer';
-import { convertFileToFront } from '../utils/flashcard';
+import Viewer from '../Viewer';
+import { convertFileToFront } from '../../utils/flashcard';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
 import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';

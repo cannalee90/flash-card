@@ -35,35 +35,37 @@ class NavbarComponent extends Component {
     const { isOpen } = this.state;
     return(
       <div className='container'>
-        <Navbar color='faded' light expand='md'>
-          <NavbarBrand href='/'>Flashcard</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={isOpen} navbar>
-            <Nav className='mr-auto' navbar>
-              <NavLinkItem
-                className='nav-link'
-                to='/list'
-                text='List'
+        <div className='row'>
+          <Navbar color='faded' light expand='md'>
+            <NavbarBrand href='/'>Flashcard</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={isOpen} navbar>
+              <Nav className='mr-auto' navbar>
+                <NavLinkItem
+                  className='nav-link'
+                  to='/list'
+                  text='List'
+                  />
+                <NavLinkItem
+                  className='nav-link'
+                  to='/new'
+                  text='New Card'
+                  />
+                <NavLinkItem
+                  className='nav-link'
+                  to='/check'
+                  text='Check'
+                  />
+                <NavLinkItem
+                  className='nav-link'
+                  to='https://github.com/cannalee90/flash-card'
+                  text='Github'
+                  target={'_flashcard'}
                 />
-              <NavLinkItem
-                className='nav-link'
-                to='/new'
-                text='New Card'
-                />
-              <NavLinkItem
-                className='nav-link'
-                to='/check'
-                text='Check'
-                />
-              <NavLinkItem
-                className='nav-link'
-                to='https://github.com/cannalee90/flash-card'
-                text='Github'
-                target={'_flashcard'}
-              />
-            </Nav>
-          </Collapse>
-        </Navbar>
+              </Nav>
+            </Collapse>
+          </Navbar>
+        </div>
       </div>
     );
   }

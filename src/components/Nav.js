@@ -34,22 +34,26 @@ export default class NavbarComponent extends Component {
               className='nav-link'
               to='/list'
               text='List'
+              onClick={this.toggle}
               />
             <NavLinkItem
               className='nav-link'
               to='/new'
               text='New Card'
+              onClick={this.toggle}
               />
             <NavLinkItem
               className='nav-link'
               to='/check'
               text='Check'
+              onClick={this.toggle}
               />
             <NavLinkItem
               className='nav-link'
               to='https://github.com/cannalee90/flash-card'
               text='Github'
               target={'_flashcard'}
+              onClick={this.toggle}
             />
           </Nav>
         </Collapse>

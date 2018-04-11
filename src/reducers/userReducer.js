@@ -32,7 +32,7 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         isLoading: false,
-        signIn: false,
+        signIn: true,
         currentUser: actions.payload,
       }
     case FETCH_USER_INFO_ERROR:

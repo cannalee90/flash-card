@@ -17,6 +17,7 @@ class Signin extends Component {
         const token = result.credential.accessToken;
         this.props.saveAccessToken(token);
         localStorage.setItem('githubAuthToken', token);
+        this.props.history.push('/callback');
       }
       const user = result.user;
     }).catch((error) => {

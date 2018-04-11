@@ -6,12 +6,17 @@ import { fetchUserInfo } from '../actions';
 import { isEmptyObj } from '../utils';
 
 class App extends Component {
+  
   componentWillReceiveProps(newProps) {
     if(this.props.user.error !== newProps.user.error || !isEmptyObj(newProps.user.error)) {
       this.props.history.push({
         pathname: '/',
         state: { errorClear: false },
       })
+    }
+
+    if(newProps.user.signIn) {
+      this.props.history.push('/list');
     }
   }
 

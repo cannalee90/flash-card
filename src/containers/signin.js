@@ -5,32 +5,43 @@ import { Link } from 'react-router-dom';
 import firebase from '../utils/firebase';
 
 import Config from './../config';
-import { saveAccessToken, fetchAccessTokenError } from '../actions';
+import {
+  saveAccessToken,
+  fetchAccessTokenError,
+  fetchUserInfo,
+} from '../actions';
+import {
+  isEmptyObj
+} from '../utils';
 
 class Signin extends Component {
   constructor(props) {
     super(props);
-    const clientId = Config.githubAuth.clientId;
-    
-    firebase.auth().getRedirectResult().then((result) => {
-      if (result.credential) {
-        const token = result.credential.accessToken;
-        this.props.saveAccessToken(token);
-        localStorage.setItem('githubAuthToken', token);
-        this.props.history.push('/callback');
-      }
-      const user = result.user;
-    }).catch((error) => {
-      this.props.fetchAccessTokenError(error);
-    });
   }
 
-  
+  componentWillReceiveProps(newProps) {
+    if(this.props.user.error !== newProps.user.error || !isEmptyObj(newProps.user.error)) {
+      this.props.history.push({
+        pathname: '/',
+        state: { errorClear: false },
+      })
+    }
+
+    if(newProps.user.signIn) {
+      this.props.history.push('/list');
+    }
+  }
 
   requestGithub = () => {
     const provider = new firebase.auth.GithubAuthProvider();    
     provider.addScope('gist');
-    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const { accessToken } = result.credential;
+      this.props.saveAccessToken(accessToken);
+      localStorage.setItem('githubAuthToken', accessToken);
+      this.props.fetchUserInfo();
+    })
   }
 
   render() {
@@ -42,14 +53,17 @@ class Signin extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  return {};
+const mapStateToProps = ({user}, props) => {
+  return {
+    user,
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     saveAccessToken: (code) => dispatch(saveAccessToken(code)),
     fetchAccessTokenError: (error) => dispatch(fetchAccessTokenError(error)),
+    fetchUserInfo: () => dispatch(fetchUserInfo()),
   };
 };
 

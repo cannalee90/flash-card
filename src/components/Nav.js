@@ -11,6 +11,7 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
+import { userSingout } from '../actions';
 
 class NavbarComponent extends Component {
   constructor(props) {
@@ -66,10 +67,12 @@ class NavbarComponent extends Component {
                   target={'_flashcard'}
                 />
               </Nav>
-              {user.signIn && <Nav navbar>
-                <NavItem>
-                  <NavLinkItem text='signout' className='nav-link'/>
-                </NavItem>
+              {user.signIn &&<Nav navbar>
+                <NavLinkItem
+                  text='Signout'
+                  className='nav-link'
+                  onClick={this.props.userSingout}
+                />
               </Nav>}
             </Collapse>
           </Navbar>
@@ -84,4 +87,10 @@ function mapStateToProps({user}) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, null)(NavbarComponent))
+function mapDispatchToProps(dispatch) {
+  return {
+    userSingout: () => dispatch(userSingout()),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavbarComponent))

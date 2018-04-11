@@ -18,7 +18,7 @@ export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const EDIT_GIST = 'EDIT_GIST';
 export const EDIT_GIST_SUCCESS = 'EDIT_GIST_SUCCESS';
 export const EDIT_GIST_ERROR = 'EDIT_GIST_ERROR';
-
+export const USER_SIGNOUT = 'USER_SIGNOUT';
 
 const createNewGistPayload = (values) => {
   return {
@@ -37,6 +37,12 @@ const deleteGistPayload = (filename) => {
     files: {
       [filename + '.md']: null,
     }
+  }
+}
+
+export const userSingout = () => {
+  return {
+    type: USER_SIGNOUT,
   }
 }
 

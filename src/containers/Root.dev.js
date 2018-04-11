@@ -8,7 +8,7 @@ import App from './App';
 import NewCard from './NewCard';
 import EditCard from './EditCard';
 import List from './List';
-import Signin from './Signin';
+import Login from './Login';
 import Check from './Check';
 
 import Nav from './../components/Nav';
@@ -58,7 +58,7 @@ const Root = ({ store }) => {
       <div>
         <Nav/>
         <Alert />
-        <Route path='/' exact component={Signin} />
+        <Route path='/' exact component={Login} />
         <PrivateRoute path='/new' component={NewCard} />
         <PrivateRoute path='/list' component={List} />
         <PrivateRoute path='/edit/:cardname' component={EditCard} />

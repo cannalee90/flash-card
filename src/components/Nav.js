@@ -31,10 +31,7 @@ class NavbarComponent extends Component {
   }
 
   userSignout = () => {
-    firebase.auth().signOut().then(() => {
-      this.props.userSignout();
-    }, (error) => {
-    });
+    this.props.userSignout();
   }
 
   toggle =() => {

@@ -21,6 +21,13 @@ class Signin extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    const { accessToken } = this.props.user;
+    if (accessToken) {
+      this.props.fetchUserInfo();
+    }
+  }
+
   componentWillReceiveProps(newProps) {
     if(this.props.user.error !== newProps.user.error || !isEmptyObj(newProps.user.error)) {
       this.props.history.push({

@@ -12,7 +12,8 @@ class AlertComponent extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(this.props.location.pathname != newProps.location.pathname) {
+    const { errors } = newProps;
+    if(this.props.location.pathname != newProps.location.pathname, errors.length !== 0) {
       this.props.clearError();
     }
   }

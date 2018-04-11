@@ -21,8 +21,6 @@ class App extends Component {
       })
     }
 
-    debugger;
-
     if(newProps.user.signIn) {
       const query = parseURIQuery(this.props.location.search);
       this.props.history.push('/list');

@@ -40,7 +40,7 @@ const deleteGistPayload = (filename) => {
   }
 }
 
-export const userSingout = () => {
+export const userSignout = () => {
   return {
     type: USER_SIGNOUT,
   }

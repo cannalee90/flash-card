@@ -11,7 +11,8 @@ import {
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
-import { userSingout } from '../actions';
+import { userSignout } from '../actions';
+import firebase from '../utils/firebase';
 
 class NavbarComponent extends Component {
   constructor(props) {
@@ -27,6 +28,13 @@ class NavbarComponent extends Component {
         isOpen: false,
       });
     }
+  }
+
+  userSignout = () => {
+    firebase.auth().signOut().then(() => {
+      this.props.userSignout();
+    }, (error) => {
+    });
   }
 
   toggle =() => {
@@ -71,7 +79,7 @@ class NavbarComponent extends Component {
                 <NavLinkItem
                   text='Signout'
                   className='nav-link'
-                  onClick={this.props.userSingout}
+                  onClick={this.userSignout}
                 />
               </Nav>}
             </Collapse>
@@ -89,7 +97,7 @@ function mapStateToProps({user}) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    userSingout: () => dispatch(userSingout()),
+    userSignout: () => dispatch(userSignout()),
   }
 }
 

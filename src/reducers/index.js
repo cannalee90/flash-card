@@ -12,6 +12,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === USER_SIGNOUT) {
+    localStorage.removeItem('githubAuthToken');
     state = undefined;
   }
   return appReducer(state, action);

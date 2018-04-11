@@ -5,15 +5,29 @@ import {
   FETCH_USER_INFO,
   FETCH_GIST_ALL,
   POST_NEW_GIST,
+  DELETE_GIST,
+  DELETE_GIST_SUCCESS,
+  DELETE_GIST_ERROR,
   fetchUserInfoSuccess,
   fetchUserInfoError,
   fetchGistSuccess,
   fetchGistError,
   postNewGistError,
   postNewGistSuccess,
+  deleteGistError,
+  deleteGistSuccess,
+  EDIT_GIST,
+  EDIT_GIST_SUCCESS,
+  EDIT_GIST_ERROR,
+  editGistError,
+  editGistSuccess,
  } from '../actions';
 
 const baseURL = 'https://api.github.com';
+const addTimeStamp = (url) => {
+  const timestamp = new Date();
+  return `${url}?timestamp=${timestamp.getTime()}`
+}
 
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
@@ -37,7 +51,7 @@ function fetchGists(action$) {
     .ofType(FETCH_GIST_ALL)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        url: addTimeStamp(baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae'),
         method: 'GET',
         headers: makeHeader(),
       })
@@ -106,5 +120,34 @@ function postNewGist(action$) {
     })
 }
 
+function deleteGist(action$) {
+  return action$
+    .ofType(DELETE_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => deleteGistSuccess(res.response))
+      .catch((error) => Observable.of(deleteGistError(error)));
+    });
+}
 
-export default combineEpics(fetchUserInfo, fetchGists, postNewGist);
+function editGist(action$) {
+  return action$
+    .ofType(EDIT_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => editGistSuccess(res.response))
+      .catch((error) => Observable.of(editGistError(error)))
+    });
+}
+
+export default combineEpics(fetchUserInfo, fetchGists, postNewGist, deleteGist, editGist);

@@ -3,14 +3,16 @@ import {
   FETCH_USER_INFO,
   FETCH_USER_INFO_SUCCESS,
   FETCH_USER_INFO_ERROR,
+  FETCH_ACCESS_TOKEN_ERROR,
   CLEAR_ERROR,
 } from './../actions';
 
 const initialState = {
   currentUser: {},
   isLoading: false,
+  signIn: false,
   accessToken: localStorage.getItem('githubAuthToken') ? localStorage.getItem('githubAuthToken') : null,
-  error: null,
+  error: {},
 };
 
 const CardReducer = (state = initialState, actions) => {
@@ -30,6 +32,7 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         isLoading: false,
+        signIn: true,
         currentUser: actions.payload,
       }
     case FETCH_USER_INFO_ERROR:

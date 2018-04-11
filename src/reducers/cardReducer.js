@@ -5,7 +5,11 @@ import {
   POST_NEW_GIST,
   POST_NEW_GIST_ERROR,
   POST_NEW_GIST_SUCCESS,
+  DELETE_GIST_ERROR,
+  DELETE_GIST_SUCCESS,
+  DELETE_GIST,
   CLEAR_ERROR,
+  EDIT_GIST_ERROR,
 } from './../actions';
 
 const initialState = {
@@ -51,6 +55,23 @@ const CardReducer = (state = initialState, actions) => {
         isLoading: false,
         error: actions.paylaod,
       };
+    case DELETE_GIST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        cards: actions.payload.files,
+        gist: actions.payload, 
+      }
+    case DELETE_GIST_ERROR:
+      return {
+        ...state,
+        error: actions.payload,
+      }
+    case EDIT_GIST_ERROR:
+      return {
+        ...state,
+        error: actions.payload,
+      }
     case CLEAR_ERROR:
       return {
         ...state,

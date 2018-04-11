@@ -14,6 +14,8 @@ import Check from './Check';
 import Nav from './../components/Nav';
 import Alert from '../components/Alert';
 
+import { encodeURI } from '../utils';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import '../style/app.css';
 
@@ -38,12 +40,16 @@ const Root = ({ store }) => {
   const PrivateRoute = ({ component: Component, ...rest }) => {
     return <Route {...rest} render={(props) => {
       if(!hasToken(store)) {
+        if(rest.path !== '/') {
+          return <Redirect to={`/?nextPage=${encodeURI(rest.path)}`} />
+        }
         return <Redirect to='/' />
       }
       else if(isAuthenticated(store)) {
         return <Component {...props} />
+      } else {
+        return <App />
       }
-      return <App />
     }} />
   }
 

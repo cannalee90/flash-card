@@ -11,7 +11,8 @@ import {
   fetchUserInfo,
 } from '../actions';
 import {
-  isEmptyObj
+  isEmptyObj,
+  parseURIQuery,
 } from '../utils';
 
 class Signin extends Component {
@@ -26,9 +27,13 @@ class Signin extends Component {
         state: { errorClear: false },
       })
     }
-
     if(newProps.user.signIn) {
-      this.props.history.push('/list');
+      const query = parseURIQuery(this.props.location.search);
+      if(isEmptyObj(query)) {
+        this.props.history.push('/list');
+      } else {
+        this.props.history.push(query.nextPage);
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import DevTools from './DevTools';
 
 import App from './App';
@@ -17,18 +17,47 @@ import Alert from '../components/Alert';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../style/app.css';
 
+const isAuthenticated = (store) => {
+  const { user } = store.getState();
+  if(user.signIn) {
+    return true;
+  }
+  return false;
+}
+
+const hasToken = (store) => {
+  const { user } = store.getState();
+  if(user.accessToken) {
+    return true;
+  }
+  return false;
+}
+
+
 const Root = ({ store }) => {
+  const PrivateRoute = ({ component: Component, ...rest }) => {
+    return <Route {...rest} render={(props) => {
+      if(!hasToken(store)) {
+        return <Redirect to='/' />
+      }
+      else if(isAuthenticated(store)) {
+        return <Component {...props} />
+      }
+      return <App />
+    }} />
+  }
+
   return (
     <Provider store={store}>
       <div>
         <Nav/>
         <Alert />
-        <Route path='/' exact component={App} />
-        <Route path='/new' component={NewCard} />
-        <Route path='/list' component={List} />
-        <Route path='/edit/:cardname' component={EditCard} />
-        <Route path='/check' component={Check} />
-        <Route path='/signin' component={Signin} />
+        <Route path='/' exact component={Signin} />
+        <PrivateRoute path='/new' component={NewCard} />
+        <PrivateRoute path='/list' component={List} />
+        <PrivateRoute path='/edit/:cardname' component={EditCard} />
+        <PrivateRoute path='/check' component={Check} />
+        <Route path='/callback' component={App} />
         <DevTools />
       </div>
     </Provider>

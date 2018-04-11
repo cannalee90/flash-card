@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
+import Loader from '../components/Loader';
 import { fetchUserInfo } from '../actions';
 import { isEmptyObj, encodeURI, parseURIQuery } from '../utils';
 
@@ -20,6 +21,8 @@ class App extends Component {
       })
     }
 
+    debugger;
+
     if(newProps.user.signIn) {
       const query = parseURIQuery(this.props.location.search);
       this.props.history.push('/list');
@@ -31,10 +34,13 @@ class App extends Component {
   }
 
   render() {
+    const { isLoading } = this.props;
     return(
       <div>
-        <div className='container'>
-          <h1>Hello World</h1>
+        <div className='container strech-container-height flex-middle'>
+          <Loader
+            isLoading={isLoading}
+          />
         </div>
       </div>
     );

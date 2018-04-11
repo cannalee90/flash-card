@@ -22,9 +22,9 @@ class Signin extends Component {
   }
 
   componentWillMount() {
-    const { accessToken } = this.props.user;
-    if (accessToken) {
-      this.props.fetchUserInfo();
+    const { signIn } = this.props.user;
+    if(!signIn && firebase.auth().currentUser) {
+      firebase.auth().signOut();
     }
   }
 
@@ -42,6 +42,14 @@ class Signin extends Component {
       } else {
         this.props.history.push(query.nextPage);
       }
+    }
+  }
+
+  componenetDidMount() {
+    const { accessToken } = this.props.user;
+    if (accessToken) {
+      console.log('aaaa');
+      this.props.fetchUserInfo();
     }
   }
 

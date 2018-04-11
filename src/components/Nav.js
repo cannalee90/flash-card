@@ -31,6 +31,7 @@ class NavbarComponent extends Component {
   }
 
   userSignout = () => {
+    localStorage.removeItem('githubAuthToken');
     this.props.userSignout();
   }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import firebase from '../utils/firebase';
 
+import Loader from '../components/Loader';
 import Config from './../config';
 import {
   saveAccessToken,
@@ -50,11 +51,23 @@ class Signin extends Component {
   }
 
   render() {
-    return(
-      <div>
-        <button onClick={this.requestGithub}>Login</button>
+    const { isLoading } = this.props.user;
+    if(isLoading) {
+      return (
+        <div className='container strech-container-height flex-middle'>
+          <Loader
+            isLoading={isLoading}
+          />
+        </div>
+      );
+    }
+    return (
+      <div className='container strech-container-height flex-middle'>
+        <button className='btn btn-primary' onClick={this.requestGithub}>
+          Signin with Github
+        </button>
       </div>
-    )
+    );
   }
 }
 

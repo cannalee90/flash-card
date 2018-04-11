@@ -48,7 +48,6 @@ class Signin extends Component {
   componenetDidMount() {
     const { accessToken } = this.props.user;
     if (accessToken) {
-      console.log('aaaa');
       this.props.fetchUserInfo();
     }
   }

@@ -42,9 +42,6 @@ let content = {
 class CardPresentation extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      status: true,
-    };
   }
 
   componentWillReceiveProps(newProps) {
@@ -78,9 +75,7 @@ class CardPresentation extends Component {
   }
 
   flipCard = () => {
-    this.setState({
-      status: !this.state.status,
-    });
+    this.flipCard();
   }
 
   render() {
@@ -88,9 +83,8 @@ class CardPresentation extends Component {
       wrapperClassName,
       className,
       currentCard,
+      status,
     } = this.props;
-
-    const { status } = this.state;
     const front = convertFileToFront(currentCard.filename);
     const back = currentCard.content;
     return (

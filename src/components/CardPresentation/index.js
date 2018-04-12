@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+import { HotKeys } from 'react-hotkeys';
 
 import { convertFileToFront } from '../../utils/flashcard';
 import { isEmptyObj } from '../../utils';
 import CardViwer from './CardViwer';
+
+const keyMap = {
+  moveNextCard: 'right',
+  movePrevCard: 'left',
+  flipCard: 'enter',
+}
 
 export default class CardPresentation extends Component {
   constructor(props) {
@@ -14,7 +21,20 @@ export default class CardPresentation extends Component {
         front: '',
         back: '',
       },
-    };   
+      status: true,
+    };
+    this.cardContainer = null;
+    this.handlers = {
+      moveNextCard: () => {
+        return this.nextCard();
+      },
+      movePrevCard: () => {
+        return this.prevCard();
+      },
+      flipCard: () => {
+        return this.flipCard();
+      }
+    }
   }
 
   componentWillMount() {
@@ -41,6 +61,16 @@ export default class CardPresentation extends Component {
     }
   }
 
+  componentDidMount() {
+    this.cardContainer.focus();
+  }
+
+  flipCard = () => {
+    this.setState({
+      status: !this.state.status
+    })
+  }
+
   nextCard = () => {
     const { unPickedCards, pickedCards } = this.state;
     if(unPickedCards.length <= 1) {
@@ -51,6 +81,7 @@ export default class CardPresentation extends Component {
         unPickedCards: [...unPickedCards],
         pickedCards: [...pickedCards],
         currentCard: unPickedCards[0],
+        status: true,
       });
     }
   }
@@ -65,6 +96,7 @@ export default class CardPresentation extends Component {
         pickedCards: [...pickedCards],
         currentCard: lastCard,
         unPickedCards: [lastCard, ...unPickedCards],
+        status: true,
       });
     }
   }
@@ -78,14 +110,20 @@ export default class CardPresentation extends Component {
   }
   
   render() {
-    const { currentCard } = this.state;
+    const { currentCard, status } = this.state;
     
     return (
-      <CardViwer
-        nextCard={this.nextCard}
-        prevCard={this.prevCard}
-        currentCard={currentCard}
-      />
+      <HotKeys keyMap={keyMap} handlers={this.handlers}>
+        <div className='hotKeyWrapper' ref={(ref) => this.cardContainer = ref} tabIndex={1}>
+          <CardViwer
+            nextCard={this.nextCard}
+            prevCard={this.prevCard}
+            flipCard={this.flipCard}
+            currentCard={currentCard}
+            status={status}
+          />
+        </div>
+      </HotKeys>
     );
   }
 

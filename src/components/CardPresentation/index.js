@@ -25,15 +25,9 @@ export default class CardPresentation extends Component {
     };
     this.cardContainer = null;
     this.handlers = {
-      moveNextCard: () => {
-        return this.nextCard();
-      },
-      movePrevCard: () => {
-        return this.prevCard();
-      },
-      flipCard: () => {
-        return this.flipCard();
-      }
+      moveNextCard: () => this.nextCard(),
+      movePrevCard: () => this.prevCard(),
+      flipCard: () =>  this.flipCard(),
     }
   }
 

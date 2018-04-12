@@ -45,8 +45,8 @@ class Signin extends Component {
     }
   }
 
-  componenetDidMount() {
-    const { accessToken } = this.props.user;
+  componentDidMount() {
+    const accessToken = localStorage.getItem('githubAuthToken');
     if (accessToken) {
       this.props.fetchUserInfo();
     }

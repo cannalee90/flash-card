@@ -59,7 +59,7 @@ class NavbarComponent extends Component {
                 <NavLinkItem
                   className='nav-link'
                   to='/new'
-                  text='New Card'
+                  text='New'
                 />
                 <NavLinkItem
                   className='nav-link'

@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
+import actionLifeCycle from '../middlewares/actionLifeCycle';
 
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools'
@@ -22,7 +23,7 @@ const configureStore = preloadedState => {
     rootReducer,
     // getTokenFromLocalStorate(preloadedState),
     compose(
-      applyMiddleware(epicMiddlewre),
+      applyMiddleware(epicMiddlewre, actionLifeCycle),
       DevTools.instrument(),
     ),
   );

@@ -13,7 +13,10 @@ import { isEmptyObj } from '../utils';
 
 class EditCard extends Component {  
   onSubmit = (values) => {
-    this.props.editGist(values);
+    this.props.editGist(values)
+    .then(() => {
+      this.props.history.push('/');
+    });
   }
 
   componentWillMount() {

@@ -103,13 +103,19 @@ export const fetchGistError = (error) => {
 export const fetchGistAll = () => {
   return {
     type: FETCH_GIST_ALL,
-  }
+  };
 }
 
 export const postNewGist = (values) => {
   return {
     type: POST_NEW_GIST,
     payload: createNewGistPayload(values),
+    meta: {
+      lifecycle: {
+        resolve: POST_NEW_GIST_SUCCESS,
+        reject: POST_NEW_GIST_ERROR,
+      },
+    },
   }
 };
 
@@ -156,7 +162,13 @@ export const clearError = () => {
 export const editGist = (values) => {
   return {
     type: EDIT_GIST,
-    payload: createNewGistPayload(values)
+    payload: createNewGistPayload(values),
+    meta: {
+      lifecycle: {
+        resolve: EDIT_GIST_SUCCESS,
+        reject: EDIT_GIST_ERROR,
+      }
+    }
   }
 }
 

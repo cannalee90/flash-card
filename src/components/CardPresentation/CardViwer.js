@@ -44,14 +44,6 @@ class CardPresentation extends Component {
     super(props);
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.currentCard != this.props.currentCard) {
-      this.setState({
-        status: true,
-      })
-    }
-  }
-
   componentDidMount() {
     this.changeElementSize();
     window.addEventListener('resize', this.changeElementSize);
@@ -75,7 +67,7 @@ class CardPresentation extends Component {
   }
 
   flipCard = () => {
-    this.flipCard();
+    this.props.flipCard();
   }
 
   render() {

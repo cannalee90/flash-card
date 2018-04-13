@@ -7,10 +7,10 @@ import Form from './form';
 
 class NewCard extends Component {  
   onSubmit = (values) => {
-    this.props.postNewGist(values)
+    return this.props.postNewGist(values)
     .then(() => {
       this.props.history.push('/list');
-    })
+    });
   }
 
   render() {

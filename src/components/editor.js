@@ -12,7 +12,7 @@ class Editor extends Component {
     this.editor = null;
   }
 
-  setEditor = (ref) => {
+  setEditor = () => {
     const { onChange, onFocus, currentValue, onBlur, onDrop } = this.props;
     if(this.editor === null) {
       this.editor = new TuiEditor({
@@ -21,27 +21,20 @@ class Editor extends Component {
         previewStyle: 'tab',
         height: '300px',
         initialValue: currentValue,
-      });
-      this.editor.on('change', () => {
-        onChange(this.editor.getValue());
-      });
-      this.editor.on('focus', () => {
-        onFocus();
-      });
-      this.editor.on('blur', () => {
-        onBlur();
-      })
-      this.editor.on('drop', () => {
-        onDrop();
+        events: {
+          change: (e) => {
+            onChange(this.editor.getValue());
+          },
+          focus: () => onFocus(),
+          blur: () => onBlur(),
+          drop: () => onDrop(),
+        },
       });
     }
   }
 
-  componentWillReceiveProps(newProps) {
-    const { currentValue } = this.props;
-    if((currentValue === '') && newProps.currentValue !== '') {
-      this.editor.setValue(newProps.currentValue);
-    }
+  componentDidMount() {
+    this.setEditor();
   }
 
   componentWillUnmount() {
@@ -50,7 +43,7 @@ class Editor extends Component {
     this.editor.off('focus');
     this.editor.off('blur');
     this.editor.off('drop');
-    this.edtior = null;
+    this.editor = null;
   }
 
   render() {
@@ -61,7 +54,7 @@ class Editor extends Component {
     return(
       <div className={wrapperClassName}>
         {label && <label>{label}</label>}
-        <div id='tui-editor' ref={this.setEditor}/>
+        <div id='tui-editor' />
       </div>      
     );
   }

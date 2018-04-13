@@ -22,8 +22,7 @@ class App extends Component {
     }
 
     if(newProps.user.signIn) {
-      const query = parseURIQuery(this.props.location.search);
-      this.props.history.push('/list');
+      this.props.history.push(this.props.location.pathname);
     }
   }
 

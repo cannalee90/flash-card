@@ -6,6 +6,7 @@ import EditorWrapper from './../common/EditorWrapper';
 
 class Form extends Component {
   componentWillUnmount() {
+    this.props.reset();
     this.props.destroy();
   }
 
@@ -41,6 +42,7 @@ class Form extends Component {
 }
 
 Form = reduxForm({
+  enableReinitialize: true,
 })(Form)
 
 export default Form;

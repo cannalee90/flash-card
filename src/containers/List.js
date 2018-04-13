@@ -1,26 +1,50 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { fetchCards } from './../actions';
+import { 
+  fetchGistAll,
+  deleteGist,
+} from '../actions';
 import Card from '../components/SmallCard';
+import CardPresentation from '../components/CardPresentation';
+import { convertFileToFront } from '../utils/flashcard';
+import { isEmptyObj } from '../utils';
 
 class List extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    this.props.fetchCards();
+    this.props.fetchGistAll();
+  }
+
+  editGist = (title) => {
+    this.props.history.push(`/edit/${title}`);
   }
 
   render() {
     const { cards } = this.props;
     return(
-      <div className='album py-5 bg-light'>
+      <div style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
+        <div className='container'>
+          <CardPresentation
+            cards={this.props.cards}
+          />
+        </div>
         <div className='container'>
           <div className='row'>
-            {cards.map((card) => {
+            {Object.keys(cards).map((key) => {
+              const obj = cards[key];
+              const front = convertFileToFront(key);
               return (
                 <Card
-                  key=''
-                  title={card.front}
+                  key={key}
+                  title={front}
+                  rawURL={obj.raw_url}
                   wrapperClassName='col-md-4'
+                  deleteGist={this.props.deleteGist}
+                  editGist={this.editGist}
                 />
               );
             })}
@@ -31,13 +55,17 @@ class List extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const { card } = state;
+const mapStateToProps = ({ card }, props) => {
   return {
-    cards: card.cards,
+    cards: card.cards || {},  
   }
 }
 
-export default withRouter(connect(mapStateToProps, {
-  fetchCards,
-})(List))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGistAll: () => dispatch(fetchGistAll()),
+    deleteGist: (filename)=> dispatch(deleteGist(filename)),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(List))

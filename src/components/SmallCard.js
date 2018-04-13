@@ -3,6 +3,16 @@ import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export default class SmallCard extends Component {
+
+  deleteGist = () => {
+    if(window.confirm('정말 삭제하시겠습니까?')) {
+      this.props.deleteGist(this.props.title);
+    }
+  }
+
+  editGist = () => {
+    this.props.editGist(this.props.title);
+  }
   
   render() {
     const {
@@ -19,11 +29,9 @@ export default class SmallCard extends Component {
             </p>
             <div className='d-flex justify-content-between align-items-center'>
               <div className='btn-group'>
-                <Button type='button' className='btn-sm btn-outline-secondary'>View</Button>
-                <Button type='button' className='btn-sm btn-outline-secondary'>Edit</Button>                
-                <Button type='button' className='btn-sm btn-outline-secondary'>History</Button>
+                <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.editGist}>Edit</Button>                
+                <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.deleteGist}>Remove</Button>
               </div>
-              <small className='text-muted'>9 mins</small>
             </div>
           </div>
         </div>

@@ -5,27 +5,36 @@ import { RenderTextInput } from './../common/DefaultFormWrapper';
 import EditorWrapper from './../common/EditorWrapper';
 
 class Form extends Component {
+  componentWillUnmount() {
+    this.props.reset();
+    this.props.destroy();
+  }
+
   render() {
     const { handleSubmit, submitting, pristine } = this.props;
     return(
       <form onSubmit={handleSubmit} >
-        <div>
-          <label>Notes</label>
-          <div>
-            <Field
-              name='front'
-              component={RenderTextInput}
-              className='testInputClass'
-            />
-          </div>
-          <div>
-            <Field name='back' component={EditorWrapper} />
-          </div>
-          <div>
-            <button type='submit' disabled={pristine || submitting}>
-              Submit
-            </button>
-          </div>
+        <Field
+          name='front'
+          component={RenderTextInput}
+          className='form-control'
+          wrapperClassName='form-group mb-3'
+          label='Front of Card'
+        />
+        <Field
+          name='back'
+          label='Back of Card'
+          component={EditorWrapper}
+          wrapperClassName='mb-3'
+        />
+        <div className='input-group mb-3'>
+          <button
+            type='submit'
+            disabled={submitting || pristine}
+            className='btn btn-primary'
+          >
+            Submit
+          </button>
         </div>
       </form>
     );
@@ -33,7 +42,7 @@ class Form extends Component {
 }
 
 Form = reduxForm({
-  form: 'newcard'
+  enableReinitialize: true,
 })(Form)
 
 export default Form;

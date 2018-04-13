@@ -1,0 +1,22 @@
+
+.form-control {
+  border-radius: 0px;
+}
+
+.btn {
+  border-radius: 0px;
+}
+
+.strech-container-height {
+  min-height: calc(100vh - 56px); 
+}
+
+.flex-middle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hotKeyWrapper:focus {
+  outline: none;
+}

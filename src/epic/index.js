@@ -1,15 +1,95 @@
 import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
 
-import { FETCH_USER_INFO, fetchUserInfoSuccess, fetchUserInfoError } from '../actions';
+import { 
+  FETCH_USER_INFO,
+  FETCH_GIST_ALL,
+  POST_NEW_GIST,
+  DELETE_GIST,
+  DELETE_GIST_SUCCESS,
+  DELETE_GIST_ERROR,
+  fetchUserInfoSuccess,
+  fetchUserInfoError,
+  fetchGistSuccess,
+  fetchGistError,
+  postNewGistError,
+  postNewGistSuccess,
+  deleteGistError,
+  deleteGistSuccess,
+  EDIT_GIST,
+  EDIT_GIST_SUCCESS,
+  EDIT_GIST_ERROR,
+  editGistError,
+  editGistSuccess,
+ } from '../actions';
+
+const baseURL = 'https://api.github.com';
+const addTimeStamp = (url) => {
+  const timestamp = new Date();
+  return `${url}?timestamp=${timestamp.getTime()}`
+}
 
 const makeHeader = () => {
   const token = localStorage.getItem('githubAuthToken');
   const headers =  {
     Authorization: `token ${token}`,
+    'Content-Type': 'application/json',
   };
   return headers;
 }
+
+const getNextPage = (xhr) => {
+  try {
+    xhr.getRequestHeader('link');
+  } catch(e) {
+
+  }
+}
+
+function fetchGists(action$) {
+  return action$
+    .ofType(FETCH_GIST_ALL)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        url: addTimeStamp(baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae'),
+        method: 'GET',
+        headers: makeHeader(),
+      })
+      .map((res) => {
+        return res.response;
+      })
+      .map((filtered) => fetchGistSuccess(filtered))
+      .catch((error) => Observable.of(fetchGistError(error)));
+    })
+}
+
+// function fetchGists(action$) {
+//   return action$
+//     .ofType(FETCH_GIST_ALL)
+//     .switchMap(({payload}) => {
+//       return Observable.ajax({
+//         url: baseURL + '/gists',
+//         method: 'GET',
+//         headers: makeHeader(),
+//       })
+//       .map(({response}) => {
+//         return Observable.from(response);
+//       })
+//       .concatMap((arr) => {
+//         return arr;
+//       })
+//       .filter((res) => {
+//         return res.public;
+//       })
+//       .toArray()
+//       .map((filtered) => {
+//         console.log('filstered', filtered);
+//         return fetchGistSuccess(filtered);
+//       })
+//       .catch((error) => Observable.of(fetchGistError(error)));
+//     })
+// }
+
 
 function fetchUserInfo(action$) {
   return action$
@@ -19,13 +99,55 @@ function fetchUserInfo(action$) {
         url: 'https://api.github.com/user',
         method: 'GET',
         headers: makeHeader(),
-      }).map((user) => {
-        return fetchUserInfoSuccess(user.response);
-      }).catch((error) => {
-        return fetchUserInfoError(error);
       })
+      .map((user) => fetchUserInfoSuccess(user.response))
+      .catch((error) => Observable.of(fetchUserInfoError(error)));
     });
-
 }
 
-export default combineEpics(fetchUserInfo);
+function postNewGist(action$) {
+  return action$
+    .ofType(POST_NEW_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => postNewGistSuccess())
+      .catch((error) => Observable.of(postNewGistError(error)));
+    })
+}
+
+function deleteGist(action$) {
+  return action$
+    .ofType(DELETE_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => deleteGistSuccess(res.response))
+      .catch((error) => Observable.of(deleteGistError(error)));
+    });
+}
+
+function editGist(action$) {
+  return action$
+    .ofType(EDIT_GIST)
+    .switchMap(({payload}) => {
+      return Observable.ajax({
+        method: 'PATCH',
+        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        headers: makeHeader(),
+        body: payload,
+      })
+      .map((res) => editGistSuccess(res.response))
+      .catch((error) => Observable.of(editGistError(error)))
+    });
+}
+
+export default combineEpics(fetchUserInfo, fetchGists, postNewGist, deleteGist, editGist);

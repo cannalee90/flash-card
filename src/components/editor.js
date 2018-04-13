@@ -12,33 +12,49 @@ class Editor extends Component {
     this.editor = null;
   }
 
-  setEditor = (ref) => {
+  setEditor = () => {
     const { onChange, onFocus, currentValue, onBlur, onDrop } = this.props;
-    this.editor = new TuiEditor({
-      el: document.querySelector('#tui-editor'),
-      initialEditType: 'markdown',
-      previewStyle: 'vertical',
-      height: '300px',
-      initialValue: currentValue,
-    });
-    this.editor.on('change', () => {
-      onChange(this.editor.getValue());
-    });
-    this.editor.on('focus', () => {
-      onFocus();
-    });
-    this.editor.on('blur', () => {
-      onBlur();
-    })
-    this.editor.on('drop', () => {
-      onDrop();
-    })
+    if(this.editor === null) {
+      this.editor = new TuiEditor({
+        el: document.querySelector('#tui-editor'),
+        initialEditType: 'markdown',
+        previewStyle: 'tab',
+        height: '300px',
+        initialValue: currentValue,
+        events: {
+          change: (e) => {
+            onChange(this.editor.getValue());
+          },
+          focus: () => onFocus(),
+          blur: () => onBlur(),
+          drop: () => onDrop(),
+        },
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.setEditor();
+  }
+
+  componentWillUnmount() {
+    this.editor.setValue('');
+    this.editor.off('change');
+    this.editor.off('focus');
+    this.editor.off('blur');
+    this.editor.off('drop');
+    this.editor = null;
   }
 
   render() {
+    const {
+      wrapperClassName,
+      label,
+    } = this.props;
     return(
-      <div>
-        <div id='tui-editor' ref={this.setEditor}/>
+      <div className={wrapperClassName}>
+        {label && <label>{label}</label>}
+        <div id='tui-editor' />
       </div>      
     );
   }

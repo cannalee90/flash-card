@@ -6,8 +6,7 @@ import {
   FETCH_GIST_ALL,
   POST_NEW_GIST,
   DELETE_GIST,
-  DELETE_GIST_SUCCESS,
-  DELETE_GIST_ERROR,
+  EDIT_GIST,
   fetchUserInfoSuccess,
   fetchUserInfoError,
   fetchGistSuccess,
@@ -16,9 +15,6 @@ import {
   postNewGistSuccess,
   deleteGistError,
   deleteGistSuccess,
-  EDIT_GIST,
-  EDIT_GIST_SUCCESS,
-  EDIT_GIST_ERROR,
   editGistError,
   editGistSuccess,
  } from '../actions';
@@ -36,14 +32,6 @@ const makeHeader = () => {
     'Content-Type': 'application/json',
   };
   return headers;
-}
-
-const getNextPage = (xhr) => {
-  try {
-    xhr.getRequestHeader('link');
-  } catch(e) {
-
-  }
 }
 
 function fetchGists(action$) {

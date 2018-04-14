@@ -40,9 +40,6 @@ let content = {
 };
 
 class CardPresentation extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.changeElementSize();
@@ -56,7 +53,7 @@ class CardPresentation extends Component {
   changeElementSize = () => {
     const windowWidth = window.innerWidth;
     const containerWidth = document.querySelector('#cardPresenter').offsetWidth;
-    const width = parseInt(windowWidth - containerWidth);
+    const width = parseInt(windowWidth - containerWidth, 10);
     const flexBasis = `${width / 2}px`;
     const marginLeft = (width / 2) * -1;
     const marginRight = (width / 2) * -1;

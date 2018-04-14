@@ -8,12 +8,8 @@ import {
 import Card from '../components/SmallCard';
 import CardPresentation from '../components/CardPresentation';
 import { convertFileToFront } from '../utils/flashcard';
-import { isEmptyObj } from '../utils';
 
 class List extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.fetchGistAll();

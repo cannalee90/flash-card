@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import QueryString from 'query-string';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import firebase from '../utils/firebase';
 
 import Loader from '../components/Loader';
-import Config from './../config';
 import {
   saveAccessToken,
   fetchAccessTokenError,
@@ -16,10 +13,7 @@ import {
   parseURIQuery,
 } from '../utils';
 
-class Signin extends Component {
-  constructor(props) {
-    super(props);
-  }
+class Login extends Component {
 
   componentWillMount() {
     const { signIn } = this.props.user;
@@ -99,4 +93,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signin);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

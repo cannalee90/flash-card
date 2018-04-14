@@ -56,6 +56,11 @@ const CardReducer = (state = initialState, actions) => {
         isLoading: false,
         error: actions.paylaod,
       };
+    case DELETE_GIST: 
+      return {
+        ...state,
+        isLoading: true,
+      }
     case DELETE_GIST_SUCCESS:
       return {
         ...state,

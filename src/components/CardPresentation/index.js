@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { HotKeys } from 'react-hotkeys';
 
-import { convertFileToFront } from '../../utils/flashcard';
 import { isEmptyObj } from '../../utils';
 import CardViwer from './CardViwer';
 

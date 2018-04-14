@@ -5,14 +5,11 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
  } from 'reactstrap';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import NavLinkItem from './NavLinkItem';
 import { userSignout } from '../actions';
-import firebase from '../utils/firebase';
 
 class NavbarComponent extends Component {
   constructor(props) {
@@ -23,7 +20,7 @@ class NavbarComponent extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.location.pathname != newProps.location.pathname) {
+    if (this.props.location.pathname !== newProps.location.pathname) {
       this.setState({
         isOpen: false,
       });

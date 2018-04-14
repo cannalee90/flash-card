@@ -10,6 +10,7 @@ import {
   DELETE_GIST,
   CLEAR_ERROR,
   EDIT_GIST_ERROR,
+  EDIT_GIST_SUCCESS,
 } from './../actions';
 
 const initialState = {
@@ -66,6 +67,12 @@ const CardReducer = (state = initialState, actions) => {
       return {
         ...state,
         error: actions.payload,
+      }
+    case EDIT_GIST_SUCCESS:
+      return {
+        ...state,
+        cards: actions.payload.files,
+        gist: actions.payload,
       }
     case EDIT_GIST_ERROR:
       return {

@@ -19,6 +19,7 @@ export default class SmallCard extends Component {
       wrapperClassName,
       title,
       hash,
+      isLoading,
     } = this.props;
     return (
       <div className={wrapperClassName}>
@@ -29,8 +30,19 @@ export default class SmallCard extends Component {
             </p>
             <div className='d-flex justify-content-between align-items-center'>
               <div className='btn-group'>
-                <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.editGist}>Edit</Button>                
-                <Button type='button' className='btn-sm btn-outline-secondary' onClick={this.deleteGist}>Remove</Button>
+                <Button
+                  type='button'
+                  className='btn-sm btn-outline-secondary'
+                  onClick={this.editGist}
+                >Edit
+                </Button>                
+                <Button
+                  type='button'
+                  className='btn-sm btn-outline-secondary'
+                  onClick={this.deleteGist}
+                  disabled={isLoading}
+                >Remove
+                </Button>
               </div>
             </div>
           </div>

@@ -6,8 +6,7 @@ import {
   FETCH_GIST_ALL,
   POST_NEW_GIST,
   DELETE_GIST,
-  DELETE_GIST_SUCCESS,
-  DELETE_GIST_ERROR,
+  EDIT_GIST,
   fetchUserInfoSuccess,
   fetchUserInfoError,
   fetchGistSuccess,
@@ -16,14 +15,13 @@ import {
   postNewGistSuccess,
   deleteGistError,
   deleteGistSuccess,
-  EDIT_GIST,
-  EDIT_GIST_SUCCESS,
-  EDIT_GIST_ERROR,
   editGistError,
   editGistSuccess,
  } from '../actions';
 
-const baseURL = 'https://api.github.com';
+import Config from '../config';
+
+const { baseURL, gistURL } = Config.githubGist;
 const addTimeStamp = (url) => {
   const timestamp = new Date();
   return `${url}?timestamp=${timestamp.getTime()}`
@@ -38,20 +36,12 @@ const makeHeader = () => {
   return headers;
 }
 
-const getNextPage = (xhr) => {
-  try {
-    xhr.getRequestHeader('link');
-  } catch(e) {
-
-  }
-}
-
 function fetchGists(action$) {
   return action$
     .ofType(FETCH_GIST_ALL)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        url: addTimeStamp(baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae'),
+        url: addTimeStamp(`${baseURL}/gists/${gistURL}`),
         method: 'GET',
         headers: makeHeader(),
       })
@@ -96,7 +86,7 @@ function fetchUserInfo(action$) {
     .ofType(FETCH_USER_INFO)
     .switchMap(({payload}) => {
       return Observable.ajax({
-        url: 'https://api.github.com/user',
+        url: `${baseURL}/user`,
         method: 'GET',
         headers: makeHeader(),
       })
@@ -111,7 +101,7 @@ function postNewGist(action$) {
     .switchMap(({payload}) => {
       return Observable.ajax({
         method: 'PATCH',
-        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        url: `${baseURL}/gists/${gistURL}`,
         headers: makeHeader(),
         body: payload,
       })
@@ -126,7 +116,7 @@ function deleteGist(action$) {
     .switchMap(({payload}) => {
       return Observable.ajax({
         method: 'PATCH',
-        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        url: `${baseURL}/gists/${gistURL}`,
         headers: makeHeader(),
         body: payload,
       })
@@ -141,7 +131,7 @@ function editGist(action$) {
     .switchMap(({payload}) => {
       return Observable.ajax({
         method: 'PATCH',
-        url: baseURL + '/gists/ea178d763c72b03dcee8ee4fa0dc03ae',
+        url: `${baseURL}/gists/${gistURL}`,
         headers: makeHeader(),
         body: payload,
       })

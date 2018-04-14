@@ -8,12 +8,8 @@ import {
 import Card from '../components/SmallCard';
 import CardPresentation from '../components/CardPresentation';
 import { convertFileToFront } from '../utils/flashcard';
-import { isEmptyObj } from '../utils';
 
 class List extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.fetchGistAll();
@@ -24,7 +20,7 @@ class List extends Component {
   }
 
   render() {
-    const { cards } = this.props;
+    const { cards, isLoading } = this.props;
     return(
       <div style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
         <div className='container'>
@@ -45,6 +41,7 @@ class List extends Component {
                   wrapperClassName='col-md-4'
                   deleteGist={this.props.deleteGist}
                   editGist={this.editGist}
+                  isLoading={isLoading}
                 />
               );
             })}
@@ -57,7 +54,8 @@ class List extends Component {
 
 const mapStateToProps = ({ card }, props) => {
   return {
-    cards: card.cards || {},  
+    cards: card.cards || {},
+    isLoading: card.isLoading,
   }
 }
 

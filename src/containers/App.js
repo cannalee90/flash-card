@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 
 import Loader from '../components/Loader';
 import { fetchUserInfo } from '../actions';
-import { isEmptyObj, encodeURI, parseURIQuery } from '../utils';
+import { isEmptyObj, encodeURI } from '../utils';
 
 class App extends Component {
   

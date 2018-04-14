@@ -1,8 +1,7 @@
 const config = {
-  githubAuth: {
-    callback: 'http://localhost:3000/callback',
-    clientId: 'b1497163e82bf1dfd9c1',
-    clientSecret: process.env.FLASHCARD_DEV_SECRET,
+  githubGist: {
+    baseURL: 'https://api.github.com',
+    gistURL: 'ea178d763c72b03dcee8ee4fa0dc03ae',
   },
   firebase: {
     apiKey: process.env.FIREBASE_API_KEY,

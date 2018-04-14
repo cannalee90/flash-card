@@ -7,13 +7,10 @@ import { clearError } from '../actions';
 import { isEmptyObj } from '../utils';
 
 class AlertComponent extends Component {
-  constructor(props){
-    super(props);
-  }
 
   componentWillReceiveProps(newProps) {
     const { errors } = newProps;
-    if(this.props.location.pathname != newProps.location.pathname, errors.length !== 0) {
+    if(this.props.location.pathname !== newProps.location.pathname && errors.length !== 0) {
       this.props.clearError();
     }
   }

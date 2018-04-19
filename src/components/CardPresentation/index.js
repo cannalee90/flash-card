@@ -31,15 +31,6 @@ export default class CardPresentation extends Component {
   }
 
   componentWillMount() {
-    if(!this.state.unPickedCards.length && !isEmptyObj(this.props.cards)) {
-      this.setState({
-        unPickedCards: Object.keys(this.props.cards).map((cur) => {
-          return this.props.cards[cur];
-        }),
-      }, () => {
-        this.setCurrentCard();
-      });
-    }    
   }
 
   componentWillReceiveProps(newProps) {

@@ -34,7 +34,7 @@ export default class CardPresentation extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if(!this.state.unPickedCards.length && !isEmptyObj(newProps.cards)) {
+    if(!isEmptyObj(newProps.cards)) {
       this.setState({
         unPickedCards: Object.keys(newProps.cards).map((cur) => {
           return newProps.cards[cur];
@@ -89,6 +89,7 @@ export default class CardPresentation extends Component {
     if(this.state.unPickedCards.length) {
       this.setState({
         currentCard: this.state.unPickedCards[0],
+        status: true,
       });
     }
   }

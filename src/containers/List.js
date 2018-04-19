@@ -7,9 +7,16 @@ import {
 } from '../actions';
 import Card from '../components/SmallCard';
 import CardPresentation from '../components/CardPresentation';
-import { convertFileToFront } from '../utils/flashcard';
+import { convertFileToFront, convertFrontToFile } from '../utils/flashcard';
 
 class List extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      pickedCards: {},
+    }
+  }
 
   componentDidMount() {
     this.props.fetchGistAll();
@@ -19,13 +26,28 @@ class List extends Component {
     this.props.history.push(`/edit/${title}`);
   }
 
+  pickCard = (title) => {
+    if (title) {
+      this.setState({
+        pickedCards: {
+          [convertFrontToFile(title)]: this.props.cards[convertFrontToFile(title)],
+        },
+      })
+    } else {
+      this.setState({
+        pickedCards: {},
+      });
+    }
+  }
+
   render() {
     const { cards, isLoading } = this.props;
+    const { pickedCards } = this.state;
     return(
       <div style={{minHeight: 'calc(100vh - 56px)', paddingTop: '20px'}}>
         <div className='container'>
           <CardPresentation
-            cards={this.props.cards}
+            cards={pickedCards}
           />
         </div>
         <div className='container'>
@@ -42,6 +64,7 @@ class List extends Component {
                   deleteGist={this.props.deleteGist}
                   editGist={this.editGist}
                   isLoading={isLoading}
+                  onMouseEnter={this.pickCard}
                 />
               );
             })}

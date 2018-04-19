@@ -13,6 +13,10 @@ export default class SmallCard extends Component {
   editGist = () => {
     this.props.editGist(this.props.title);
   }
+
+  onMouseEnter = () => {
+    this.props.onMouseEnter(this.props.title);
+  }
   
   render() {
     const {
@@ -23,7 +27,7 @@ export default class SmallCard extends Component {
     } = this.props;
     return (
       <div className={wrapperClassName}>
-        <div className='card mb-4 box-shadow'>
+        <div className='card mb-4 box-shadow' onMouseEnter={this.onMouseEnter}>
           <div className='card-body'>
             <p className='card-text'>
               <Link to={`/card/${hash}`}>{title}</Link>

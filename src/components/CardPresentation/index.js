@@ -52,6 +52,8 @@ export default class CardPresentation extends Component {
   flipCard = () => {
     this.setState({
       status: !this.state.status
+    },() => {
+      window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, document.getElementById('cardPresenter')]);
     })
   }
 

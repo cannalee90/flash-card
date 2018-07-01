@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { fetchGistAll } from '../actions';
+import { shuffleArray } from '../utils';
 import CardPresentation from '../components/CardPresentation';
 
 
@@ -15,7 +16,7 @@ class Check extends Component {
   render() {
     return (
       <CardPresentation
-        cards={this.props.cards}
+        cards={shuffleArray(this.props.cards)}
       />
     )
   }

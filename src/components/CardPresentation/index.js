@@ -82,7 +82,7 @@ export default class CardPresentation extends Component {
   }
 
   render() {
-    const { currentCard, status } = this.state;
+    const { currentCard, status, pickedCards, unPickedCards } = this.state;
 
     return (
       <CardViwer
@@ -90,6 +90,8 @@ export default class CardPresentation extends Component {
         prevCard={this.prevCard}
         flipCard={this.flipCard}
         currentCard={currentCard}
+        isFirstCard={!pickedCards.length}
+        isLastCard={!unPickedCards.length}
         status={status}
       />
     );

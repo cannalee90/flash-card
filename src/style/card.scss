@@ -1,3 +1,4 @@
+
 .card-presentation {
 
   height: 300px;
@@ -7,21 +8,25 @@
   align-content: center;
   position: relative;
   width: 100%;
+  margin-bottom: 10px;
+
+  .hidden {
+    opacity: 0.5;
+  }
 
   & > .left-btn {
     padding: 15px;
     flex-basis: 30px;
-    height: 300px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
 
-  & > .right-bnt {
+  & > .right-btn {
     padding: 15px;
     flex-basis: 30px;
-    height: 300px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +39,7 @@
     width: 100%;
     height: 100%;
 
-    &.--flipped {
+    &.card-viwer--flipped {
       transform: rotateY(180deg);
     }
 
@@ -48,15 +53,19 @@
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
+      &.content--front {
+      }
 
+      &.content--back {
+        transform: rotateY(180deg);
+      }
+      &:after {
+
+      }
+
+      &:before {
+
+      }
     };
-
-    .content--front {
-    }
-
-    .content--back {
-      transform: rotateY(180deg);
-    }
-
   }
 }

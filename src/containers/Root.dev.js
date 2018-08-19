@@ -64,7 +64,7 @@ const Root = ({ store }) => {
         <PrivateRoute path='/edit/:cardname' component={EditCard} />
         <PrivateRoute path='/check' component={Check} />
         <Route path='/callback' component={App} />
-        <DevTools />
+        {/* <DevTools /> */}
       </div>
     </Provider>
   )

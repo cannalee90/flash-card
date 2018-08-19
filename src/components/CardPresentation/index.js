@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import { HotKeys } from 'react-hotkeys';
 
 import { isEmptyObj } from '../../utils';
 import CardViwer from './CardViwer';
-
-const keyMap = {
-  moveNextCard: 'right',
-  movePrevCard: 'left',
-  flipCard: 'enter',
-}
 
 export default class CardPresentation extends Component {
   constructor(props) {
@@ -22,12 +15,6 @@ export default class CardPresentation extends Component {
       },
       status: true,
     };
-    this.cardContainer = null;
-    this.handlers = {
-      moveNextCard: () => this.nextCard(),
-      movePrevCard: () => this.prevCard(),
-      flipCard: () =>  this.flipCard(),
-    }
   }
 
   componentWillMount() {
@@ -46,7 +33,6 @@ export default class CardPresentation extends Component {
   }
 
   componentDidMount() {
-    this.cardContainer.focus();
   }
 
   flipCard = () => {
@@ -95,22 +81,18 @@ export default class CardPresentation extends Component {
       });
     }
   }
-  
+
   render() {
     const { currentCard, status } = this.state;
-    
+
     return (
-      <HotKeys keyMap={keyMap} handlers={this.handlers}>
-        <div className='hotKeyWrapper' ref={(ref) => this.cardContainer = ref} tabIndex={1}>
-          <CardViwer
-            nextCard={this.nextCard}
-            prevCard={this.prevCard}
-            flipCard={this.flipCard}
-            currentCard={currentCard}
-            status={status}
-          />
-        </div>
-      </HotKeys>
+      <CardViwer
+        nextCard={this.nextCard}
+        prevCard={this.prevCard}
+        flipCard={this.flipCard}
+        currentCard={currentCard}
+        status={status}
+      />
     );
   }
 

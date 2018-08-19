@@ -11,7 +11,7 @@ export default class CardPresentation extends Component {
       unPickedCards: [],
       currentCard: {
         filename: '카드를 선택해 주세요',
-        content: '카드를 선택해 주세요',
+        content: '빈 카드 입니다',
       },
       status: true,
     };
@@ -38,9 +38,7 @@ export default class CardPresentation extends Component {
   flipCard = () => {
     this.setState({
       status: !this.state.status
-    },() => {
-      window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, document.getElementById('cardPresenter')]);
-    })
+    });
   }
 
   nextCard = () => {
@@ -73,12 +71,13 @@ export default class CardPresentation extends Component {
     }
   }
 
-  setCurrentCard = () => {
+  setCurrentCard = async () => {
     if(this.state.unPickedCards.length) {
-      this.setState({
+      await this.setState({
         currentCard: this.state.unPickedCards[0],
         status: true,
       });
+      window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, document.getElementById('cardPresenter')]);
     }
   }
 

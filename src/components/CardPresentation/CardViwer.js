@@ -1,66 +1,20 @@
 import React, { Component } from 'react';
-import Viewer from '../Viewer';
 import { convertFileToFront } from '../../utils/flashcard';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import angleLeft from '@fortawesome/fontawesome-free-solid/faAngleLeft';
-import angleRight from '@fortawesome/fontawesome-free-solid/faAngleRight';
+import marked from 'marked';
 
-let cardStyle = {
-  height: '300px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  alignContent: 'center',
-  flexFlow: 'row wrap',
-};
-
-let leftBtn = {
-  padding: '15px',
-  flexBasis: '30px',
-  height: '300px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-let rightBtn = {
-  padding: '15px',
-  flexBasis: '30px',
-  height: '300px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-};
-
-let content = {
-  flex: '2',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
+import '../../style/card.css';
 
 class CardPresentation extends Component {
 
   componentDidMount() {
-    this.changeElementSize();
-    window.addEventListener('resize', this.changeElementSize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.changeElementSize);
   }
 
-  changeElementSize = () => {
-    const windowWidth = window.innerWidth;
-    const containerWidth = document.querySelector('#cardPresenter').offsetWidth;
-    const width = parseInt(windowWidth - containerWidth, 10);
-    const flexBasis = `${width / 2}px`;
-    const marginLeft = (width / 2) * -1;
-    const marginRight = (width / 2) * -1;
-    document.querySelector('.leftBtn').style.flexBasis =  flexBasis;
-    document.querySelector('.rightBtn').style.flexBasis =  flexBasis;
-    document.querySelector('.leftBtn').style.marginLeft = `${marginLeft}px`;
-    document.querySelector('.rightBtn').style.marginRight =  `${marginRight}px`;
+  createMarkup = (content) => {
+    const __html = marked(content);
+    return {__html: __html};
   }
 
   flipCard = () => {
@@ -69,26 +23,24 @@ class CardPresentation extends Component {
 
   render() {
     const {
-      wrapperClassName,
-      className,
-      currentCard,
       status,
+      currentCard,
     } = this.props;
     const front = convertFileToFront(currentCard.filename);
     const back = currentCard.content;
     return (
-      <div className={`${wrapperClassName}`} id='cardPresenter' style={{width: '100%'}}>
-        <div className={className} style={cardStyle}>
-          <div className='leftBtn' style={leftBtn} onClick={this.props.prevCard}>
-            <FontAwesomeIcon icon={angleLeft} />
+      <div className='card-presentation' id='cardPresenter'>
+        <div className='left-btn'>
+        </div>
+        <div className={`card-viwer ${!status ? '--flipped' : null}`} onClick={this.flipCard}>
+          <div className={'content content--front'}>
+            <h1>{front}</h1>
           </div>
-          <div style={content} onClick={this.flipCard}>
-            {status && <h1>{front}</h1>}
-            {!status && <Viewer content={back}/>}
+          <div className={'content content--back'}>
+            <div dangerouslySetInnerHTML={this.createMarkup(back)} />
           </div>
-          <div className='rightBtn' style={rightBtn} onClick={this.props.nextCard}>
-            <FontAwesomeIcon icon={angleRight} />
-          </div>
+        </div>
+        <div className='right-btn'>
         </div>
       </div>
     )

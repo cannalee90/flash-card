@@ -27,3 +27,6 @@ yarn-error.log*
 *.tsx
 *.ts
 .env
+
+**/*/*.css
+**/*.css

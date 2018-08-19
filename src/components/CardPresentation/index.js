@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { isEmptyObj } from '../../utils';
 import CardViwer from './CardViwer';
 
+const DEFAULT_FILENAME = '카드를 선택해 주세요';
+const DEFAULT_CONTENT = '빈 카드 입니다;'
+
 export default class CardPresentation extends Component {
   constructor(props) {
     super(props);
@@ -10,8 +13,8 @@ export default class CardPresentation extends Component {
       pickedCards: [],
       unPickedCards: [],
       currentCard: {
-        filename: '카드를 선택해 주세요',
-        content: '빈 카드 입니다',
+        filename: DEFAULT_FILENAME,
+        content: DEFAULT_CONTENT,
       },
       status: true,
     };
@@ -27,7 +30,7 @@ export default class CardPresentation extends Component {
           return newProps.cards[cur];
         }),
       }, () => {
-        this.setCurrentCard()
+        this.setFirstCard()
       })
     }
   }
@@ -42,43 +45,60 @@ export default class CardPresentation extends Component {
   }
 
   nextCard = () => {
-    const { unPickedCards, pickedCards } = this.state;
-    if(unPickedCards.length <= 1) {
+    const { unPickedCards, pickedCards, currentCard } = this.state;
+    if(unPickedCards.length < 1) {
       alert('마지막 카드입니다');
     } else {
-      pickedCards.push(unPickedCards.shift());
+      const nextCurrentCard = unPickedCards.shift();
+      const nextPickedCards = [...pickedCards, currentCard];
+      const nextUnPickedCards = [...unPickedCards];
       this.setState({
-        unPickedCards: [...unPickedCards],
-        pickedCards: [...pickedCards],
-        currentCard: unPickedCards[0],
+        unPickedCards: nextUnPickedCards,
+        pickedCards: nextPickedCards,
+        currentCard: nextCurrentCard,
         status: true,
       });
     }
   }
 
   prevCard = () => {
-    const { unPickedCards, pickedCards } = this.state;
+    const { unPickedCards, pickedCards, currentCard } = this.state;
     if(pickedCards.length < 1) {
       alert('맨 처음 카드입니다')
     } else {
       const lastCard = pickedCards.pop();
+      const nextPickedCards = [...pickedCards];
+      const nextUnPickedCards = [currentCard, ...unPickedCards];
       this.setState({
-        pickedCards: [...pickedCards],
+        pickedCards: nextPickedCards,
         currentCard: lastCard,
-        unPickedCards: [lastCard, ...unPickedCards],
+        unPickedCards: nextUnPickedCards,
         status: true,
       });
     }
   }
 
-  setCurrentCard = async () => {
-    if(this.state.unPickedCards.length) {
+  setFirstCard = async () => {
+    const { unPickedCards } = this.state
+    if(unPickedCards.length) {
+      const currentCard = unPickedCards.shift();
       await this.setState({
-        currentCard: this.state.unPickedCards[0],
+        currentCard,
         status: true,
+        unPickedCards: [...unPickedCards]
       });
       window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, document.getElementById('cardPresenter')]);
     }
+  }
+
+  isEmptyCard(card) {
+    const { filename, content } = card;
+    if (filename === DEFAULT_FILENAME && content === DEFAULT_CONTENT) {
+      return true;
+    } else if (!filename && !content) {
+      return true;
+    }
+    return false;
   }
 
   render() {

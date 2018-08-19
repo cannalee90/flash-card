@@ -10,8 +10,8 @@ export default class CardPresentation extends Component {
       pickedCards: [],
       unPickedCards: [],
       currentCard: {
-        front: '',
-        back: '',
+        filename: '카드를 선택해 주세요',
+        content: '카드를 선택해 주세요',
       },
       status: true,
     };
